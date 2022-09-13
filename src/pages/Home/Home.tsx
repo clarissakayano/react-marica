@@ -21,7 +21,10 @@ const Home: React.FC = () => {
     <>
       <h1>{t('home.title')}</h1>
       <LanguageSwitcher />
+      <p> testando</p>
       <p>{`v${Config.app.version}`}</p>
+      <p>teste123445666</p>
+      <p>FAzendo outro teste</p>
     </>
   )
 }
