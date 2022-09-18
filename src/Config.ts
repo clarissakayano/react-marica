@@ -2,6 +2,10 @@ const Config = {
   app: {
     name: import.meta.env.VITE_APP_NAME,
     version: import.meta.env.PACKAGE_VERSION,
+    env: import.meta.env.MODE,
+  },
+  api: {
+    baseURL: import.meta.env.VITE_API_BASE_URL,
   },
   i18n: {
     debbug: JSON.parse(
