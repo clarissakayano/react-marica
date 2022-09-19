@@ -1,9 +1,23 @@
 import { memo, useEffect } from 'react'
 
 import Header from 'Header/Header'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { FaUmbrellaBeach } from 'react-icons/fa'
+import { GiMicrophone } from 'react-icons/gi'
+import { IoMdFlower } from 'react-icons/io'
+import { MdLocationCity } from 'react-icons/md'
+import {
+  RiHotelBedFill,
+  RiRestaurantFill,
+  RiCalendar2Fill,
+  RiRoadMapFill,
+} from 'react-icons/ri'
+import { SiHomeassistantcommunitystore } from 'react-icons/si'
+
+import appstore from 'assets/appstore.png'
+import googleapp from 'assets/googleapp.png'
+import phone from 'assets/phone.png'
 
 import Config from 'Config'
 
@@ -12,6 +26,14 @@ import Footer from 'components/Footer/Footer'
 import LanguageSwitcher from 'components/LanguageSwitcher'
 
 import useTitle from 'hooks/useTitle'
+
+import {
+  BgColorFooter,
+  BgFooter,
+  SubTitle,
+  TextFooter,
+  BgColor,
+} from './styles'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -25,59 +47,200 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <Container>
-        <Row>
-          <Col className="col-6 col-md-4 mb-2">
-            <Card className="mt-5" style={{ width: '25rem' }}>
-              <Card.Body>
-                <div className="d-flex justify-content-center">
+      <BgColor className="d-flex">
+        <Container className="py-5">
+          <Row className="d-flex justify-content-center">
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className=" d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
                   <FaUmbrellaBeach size={48} />
                 </div>
-                <Card.Title>Pontos Turísticos</Card.Title>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Pontos Turísticos"
+                    description="Conheça nossas praias, lagoas, grutas e outros pontos turísticos"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
 
-                <Card.Text>
-                  Conheça nossas praias, lagoas, grutas e outros pontos
-                  turísticos
-                </Card.Text>
-                <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href="#">Another Link</Card.Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col className="col-6 col-md-4 mb-2">
-            <Card className="mt-5" style={{ width: '25rem' }}>
-              <div className="d-flex justify-content-center py-2">
-                <FaUmbrellaBeach size={48} />
-              </div>
-              <div className="d-flex justify-content-center">
-                <HomeCards
-                  title="Hotéis e Pousadas"
-                  description="Saiba onde se hospedar em Maricá"
-                />
-              </div>
-              <div className="d-flex justify-content-center">
-                <buttom>Acessar</buttom>
-              </div>
-            </Card>
-          </Col>
-          <Col className="col-6 col-md-4 mb-2">
-            <Card className="mt-5" style={{ width: '25rem' }}>
-              <div className="d-flex justify-content-center py-2">
-                <FaUmbrellaBeach size={48} />
-              </div>
-              <div className="d-flex justify-content-center">
-                <HomeCards
-                  title="Hotéis e Pousadas"
-                  description="Saiba onde se hospedar em Maricá"
-                />
-              </div>
-              <div className="d-flex justify-content-center">
-                <buttom>Acessar</buttom>
-              </div>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <RiHotelBedFill size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Hotéis e Pousadas"
+                    description="Saiba onde se hospedar em Maricá"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <RiRestaurantFill size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Hotéis e Pousadas"
+                    description="Saiba onde se hospedar em Maricá"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <SiHomeassistantcommunitystore size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Comércio Local"
+                    description="Veja onde fazer as suas compras"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <GiMicrophone size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Espaços para Eventos
+                  "
+                    description="Locais para fazer suas festas ou reuniões"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <RiCalendar2Fill size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Eventos"
+                    description="Confira o calendário de eventos da cidade"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <RiCalendar2Fill size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Eventos"
+                    description="Confira o calendário de eventos da cidade"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <IoMdFlower size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Artesanato"
+                    description="Conheça e compre as criações dos artesãos de Maricá/RJ"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+
+            <Col className="col-6 col-md-4 mb-2">
+              <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
+                <div className="d-flex justify-content-center py-2">
+                  <MdLocationCity size={48} />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <HomeCards
+                    title="Sobre a cidade"
+                    description="Conheça mais sobre Maricá"
+                  />
+                </div>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button variant="outline-success">Acessar</Button>{' '}
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </BgColor>
+
+      <BgColorFooter>
+        <Container>
+          <Row>
+            <Col className="flex-column col-md-7 mb-4 mb-md-0">
+              <TextFooter className="fw-bold mt-5 mb-4">
+                Conheça nosso aplicativo
+              </TextFooter>
+              <SubTitle>
+                Tenha o Guia Oficial de Turismo de Maricá a qualquer momento, na
+                palma das suas mãos!
+              </SubTitle>
+              <Row className="form-row mt-auto text-center text-md-left">
+                <Col className="col-6 col-md-5 mb-3">
+                  <div className="img-fluid col-6 col-md-6 mb-3">
+                    <img
+                      className="img-fluid"
+                      src={googleapp}
+                      alt="googleapp"
+                    />
+                  </div>
+                </Col>
+                <Col className="col-6 col-md-5 mb-3">
+                  <div className="col-6 col-md-5">
+                    <img className="img-fluid" src={appstore} alt="appstore" />
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col className="col-md-5 text-center text-md-right">
+              <img className="img-fluid" src={phone} alt="Phone" />
+            </Col>
+          </Row>
+        </Container>
+      </BgColorFooter>
       <Footer />
     </>
   )

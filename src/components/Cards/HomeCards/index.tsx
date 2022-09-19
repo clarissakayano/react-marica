@@ -18,7 +18,7 @@ const HomeCards: React.FC<IHomeCardsProps> = ({ icon, title, description }) => {
     <div>
       {icon}
       <Text>{title}</Text>
-      <Description>{description}</Description>
+      <Description className="d-none d-sm-block">{description}</Description>
     </div>
   )
 }
