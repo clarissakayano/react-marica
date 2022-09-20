@@ -33,7 +33,9 @@ import {
   SubTitle,
   TextFooter,
   BgColor,
+  Btn,
 } from './styles'
+import { Buttom } from 'Header/styles'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -62,7 +64,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -79,7 +81,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -96,7 +98,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -113,7 +115,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -131,7 +133,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -148,7 +150,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -165,7 +167,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>{' '}
                 </div>
               </Card>
             </Col>
@@ -182,7 +184,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>{' '}
                 </div>
               </Card>
             </Col>
@@ -199,7 +201,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Button variant="outline-success">Acessar</Button>{' '}
+                  <Btn >Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -218,9 +220,9 @@ const Home: React.FC = () => {
                 Tenha o Guia Oficial de Turismo de Maricá a qualquer momento, na
                 palma das suas mãos!
               </SubTitle>
-              <Row className="form-row mt-auto text-center text-md-left">
+              <Row className="mt-auto text-center text-md-left">
                 <Col className="col-6 col-md-5 mb-3">
-                  <div className="img-fluid col-6 col-md-6 mb-3">
+                  <div >
                     <img
                       className="img-fluid"
                       src={googleapp}
@@ -229,14 +231,14 @@ const Home: React.FC = () => {
                   </div>
                 </Col>
                 <Col className="col-6 col-md-5 mb-3">
-                  <div className="col-6 col-md-5">
+                  <div>
                     <img className="img-fluid" src={appstore} alt="appstore" />
                   </div>
                 </Col>
               </Row>
             </Col>
-            <Col className="col-md-5 text-center text-md-right">
-              <img className="img-fluid" src={phone} alt="Phone" />
+            <Col className="col-6 col-md-5 text-md-right text-center mt-5">
+              <img className="img-fluid mb-5" src={phone} alt="Phone" />
             </Col>
           </Row>
         </Container>

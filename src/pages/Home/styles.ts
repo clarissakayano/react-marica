@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   .btn {
-    color: rgb(110, 189, 0);
+    color: #6ebd00;
     border: 1px solid rgb(110, 189, 0);
     background-color: transparent;
   }
@@ -10,6 +10,10 @@ export const Container = styled.div`
 
 export const BgColor = styled.div`
   background-color: #f5f5f5;
+
+  .Button {
+    color: #6ebd00;
+  }
 `
 
 export const BgColorFooter = styled.div`
@@ -26,4 +30,12 @@ export const SubTitle = styled.p`
 
 export const BgFooter = styled.div`
   color: #333333;
+`
+export const Btn = styled.button`
+  color: #6ebd00;
+  border: 1px solid rgb(110, 189, 0);
+  background-color: transparent;
+  border-radius: 15px;
+  padding: 0px 20px;
+  @media (min-width: 992px);
 `

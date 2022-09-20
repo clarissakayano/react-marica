@@ -1,8 +1,11 @@
 import { memo } from 'react'
 
 import Carousel from 'react-bootstrap/Carousel'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import Offcanvas from 'react-bootstrap/Offcanvas'
 import { BsTwitter, BsYoutube } from 'react-icons/bs'
-import { FaInstagram } from 'react-icons/fa'
+import { FaBars, FaInstagram } from 'react-icons/fa'
 import { MdFacebook } from 'react-icons/md'
 
 import banner2 from 'assets/banner2.jpeg'
@@ -22,6 +25,9 @@ const Header: React.FC = () => (
   <div>
     <BgColor>
       <Container className="d-flex justify-content-between h-100 container">
+        <div className="d-flex align-items-center">
+          <FaBars style={{ width: '15rem', color: 'white' }} />
+        </div>
         <div>
           <img
             className="img-fluid d-none d-md-inline"
@@ -47,15 +53,23 @@ const Header: React.FC = () => (
             src={calendar}
             alt="First slide"
           />
-          <img className="d-md-none" src={calendarsm} alt="calendar" />
+          <img
+            className="d-md-none img-fluid"
+            src={calendarsm}
+            alt="calendar"
+          />
         </Carousel.Item>
         <Carousel.Item interval={500}>
           <img
-            className="d-block w-100 d-none d-md-inline"
+            className="d-block w-100 d-none d-md-inline img-fluid"
             src={banner2}
             alt="Second slide"
           />
-          <img className="d-md-none" src={seminariosm} alt="seminario sm" />
+          <img
+            className="d-md-none img-fluid"
+            src={seminariosm}
+            alt="seminario sm"
+          />
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -63,7 +77,11 @@ const Header: React.FC = () => (
             src={sabor}
             alt="Sabor da Roça"
           />
-          <img className="d-md-none" src={saborsm} alt="sabor da roça" />
+          <img
+            className="d-md-none img-fluid"
+            src={saborsm}
+            alt="sabor da roça"
+          />
         </Carousel.Item>
       </Carousel>
     </main>

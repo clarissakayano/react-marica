@@ -1,5 +1,0 @@
-Buttom {
-        color: rgb(110, 189, 0);
-    border: 1px solid rgb(110, 189, 0);
-    background-color: transparent;
-}

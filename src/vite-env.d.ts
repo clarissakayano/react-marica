@@ -4,7 +4,8 @@ interface ImportMetaEnv {
   readonly VITE_APP_NAME?: string
   readonly VITE_I18N_DEBBUG?: 'true' | 'false'
   readonly PACKAGE_VERSION: string
-  readonly VITE_VIA_MARICA_BASE_URL?: string
+  readonly VITE_MARICA_API_BASE_URL?: string
+  readonly VITE_MARICA_API_TOKEN?: string
   // add more env variables here...
 }
 

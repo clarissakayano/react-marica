@@ -7,11 +7,12 @@ const Api = axios.create({
   baseURL: Config.api.baseURL,
 })
 
-Api.interceptors.response.use((Config) => {
+Api.interceptors.response.use((config) => {
   return {
     ...config,
     params: {
       ...config.params,
+      toke: Config.api.token,
     },
   }
 })

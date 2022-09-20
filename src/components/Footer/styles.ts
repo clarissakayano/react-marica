@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const BgF = styled.div`
   background-color: #333;
   color: white;
+  font-size: 18px;
 
   a {
     text-decoration: none;
@@ -15,4 +16,7 @@ export const BgF = styled.div`
     text-decoration: none;
     color: white;
   }
+`
+export const TextWhite = styled.span`
+  color: white;
 `

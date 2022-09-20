@@ -5,7 +5,8 @@ const Config = {
     env: import.meta.env.MODE,
   },
   api: {
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: import.meta.env.VITE_MARICA_API_BASE_URL,
+    token: import.meta.env.VITE_MARICA_API_TOKEN,
   },
   i18n: {
     debbug: JSON.parse(
