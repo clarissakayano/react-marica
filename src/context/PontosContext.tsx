@@ -8,35 +8,35 @@ import {
   useState,
 } from 'react'
 
-import { BannerType } from 'components/types/BannerType'
+import { PontoType } from 'components/types/PontoType'
 
 import Api from 'services/Api'
 import { error } from 'console'
 
 interface IContextProps {
-  banners: BannerType[]
-  banner: BannerType | null
+  banners: PontoType[]
+  banner: PontoType | null
   isLoading: boolean
   error: string | null
-  setBanners: Dispatch<SetStateAction<BannerType[]>>
-  setBanner: Dispatch<SetStateAction<BannerType[]>>
+  setPontos: Dispatch<SetStateAction<PontoType[]>>
+  setPonto: Dispatch<SetStateAction<PontoType[]>>
 }
 
-interface IBannersProviderProps {
+interface IPontosProviderProps {
   children: React.ReactNode
 }
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps)
 
-export const BannersProvider: React.FC<IBannersProviderProps> = ({
+export const PontosProvider: React.FC<IPontosProviderProps> = ({
   children,
 }) => {
-  const [banners, setBanners] = useState<BannerType[]>([])
-  const [banner, setBanner] = useState<BannerType[]>([])
+  const [banners, setPontos] = useState<PontoType[]>([])
+  const [banner, setPonto] = useState<PontoType[]>([])
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-const fetchBanners = useCallback(async () => {
+const fetchPontos = useCallback(async () => {
   setIsLoading(true))
 
   setIsLoading(true);
@@ -44,7 +44,7 @@ const fetchBanners = useCallback(async () => {
 
 
   try {
-    const response = await Api.get('/banners');
+    const response = await Api.get('/pontos-turisticos');
  console.log('results', results)
   } catch {
     console.log('deu erro');
@@ -62,8 +62,8 @@ const fetchBanners = useCallback(async () => {
           banner,
           isLoading,
           error,
-          setBanners,
-          setBanner,
+          setPontos,
+          setPonto,
         }),
         [banners, banner, isLoading, error,],
       )}
@@ -73,12 +73,12 @@ const fetchBanners = useCallback(async () => {
   )
 }
 
-export const useBanners = (): IContextProps => {
+export const usePontos = (): IContextProps => {
   const context = useContext(ReactContext)
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('useBanner must be within BannersProvider')
+    console.error('usePonto must be within PontosProvider')
   }
 
   return context

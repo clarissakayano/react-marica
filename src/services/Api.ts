@@ -11,7 +11,7 @@ Api.interceptors.request.use((config) => {
     ...config,
     params: {
       ...config.params,
-      toke: Config.api.token,
+      token: Config.api.token,
     },
   }
 })

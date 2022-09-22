@@ -8,14 +8,10 @@ import { BsTwitter, BsYoutube } from 'react-icons/bs'
 import { FaBars, FaInstagram } from 'react-icons/fa'
 import { MdFacebook } from 'react-icons/md'
 
-import banner2 from 'assets/banner2.jpeg'
-import calendar from 'assets/bannercalendario.jpeg'
-import calendarsm from 'assets/calendarsm.jpeg'
 import logo from 'assets/logo.png'
 import logo2 from 'assets/maricas.png'
-import sabor from 'assets/saborlg.jpeg'
-import saborsm from 'assets/saborsm.jpeg'
-import seminariosm from 'assets/seminariosm.jpeg'
+
+import Banners from 'components/BannersHome'
 
 import { Container } from 'pages/Home/styles'
 
@@ -45,46 +41,8 @@ const Header: React.FC = () => (
         </div>
       </Container>
     </BgColor>
-    <main>
-      <Carousel>
-        <Carousel.Item interval={1000}>
-          <img
-            className="d-block w-100 d-none d-md-inline"
-            src={calendar}
-            alt="First slide"
-          />
-          <img
-            className="d-md-none img-fluid"
-            src={calendarsm}
-            alt="calendar"
-          />
-        </Carousel.Item>
-        <Carousel.Item interval={500}>
-          <img
-            className="d-block w-100 d-none d-md-inline img-fluid"
-            src={banner2}
-            alt="Second slide"
-          />
-          <img
-            className="d-md-none img-fluid"
-            src={seminariosm}
-            alt="seminario sm"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 d-none d-md-inline"
-            src={sabor}
-            alt="Sabor da Roça"
-          />
-          <img
-            className="d-md-none img-fluid"
-            src={saborsm}
-            alt="sabor da roça"
-          />
-        </Carousel.Item>
-      </Carousel>
-    </main>
+
+    <main />
   </div>
 )
 export default memo(Header)

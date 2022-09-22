@@ -36,6 +36,9 @@ import {
   Btn,
 } from './styles'
 import { Buttom } from 'Header/styles'
+import BannerCarousel from 'components/BannerCarousel'
+import Banners from 'components/BannersHome'
+import BannersHome from 'components/BannersHome'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -49,6 +52,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
+      <BannersHome />
       <BgColor className="d-flex">
         <Container className="py-5">
           <Row className="d-flex justify-content-center">

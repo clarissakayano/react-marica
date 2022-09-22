@@ -9,26 +9,29 @@ import { Cover, Title } from './styles'
 
 interface ICollectionTypeProps {
   collection: CollectionType
+  children?: React.ReactNode
 }
 
 const CategoryCard: React.FC<ICollectionTypeProps> = ({ collection }) => (
   <Card className="w-100">
     <Cover
-      aspectRatio="1x1"
       style={{
-        backgroundImage: `url(${address.capa})`,
+        backgroundImage: `url(${collection.capa})`,
       }}
     >
       <div />
     </Cover>
     <Card.Body>
       <Card.Title>
-        <Link style={{ textDecoration: 'none' }} to={`address/${address.id}`}>
-          <Title key={endereco.id} />
+        <Link
+          style={{ textDecoration: 'none' }}
+          to={`collection/${collection.id}`}
+        >
+          <Title key={collection.id}>{collection.nome}</Title>
         </Link>
       </Card.Title>
     </Card.Body>
   </Card>
 )
 
-export default memo(AddressCard)
+export default memo(CategoryCard)

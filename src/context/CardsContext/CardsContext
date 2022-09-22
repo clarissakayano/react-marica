@@ -6,66 +6,79 @@ import {
   useMemo,
   useState,
 } from 'react';
-/* 
-import { VehicleType } from 'components/types/VehicleType';
 
-import { normalizeVehicleData } from 'helpers';
-*/
-import Api from 'services/api';
+import Api from 'services/Api';
+
+import { CharacterType } from 'types/CharacterType';
 
 interface IContextProps {
-  vehicles: VehicleType[];
-  currentPage: number;
-  error: string | null;
-  fetchVehicles: () => Promise<void>;
+  characters: CharacterType[];
+  character: CharacterType | null;
   isLoading: boolean;
   totalPages: number;
-  vehicle: VehicleType;
-  setSelectedVehicle: (vehicle: VehicleType) => void;
+  currentPage: number;
+  error: string | null;
+  fetchCharacter: (id: number | string) => Promise<void>;
+  fetchCharacters: (page: number, search?: string) => Promise<void>;
 }
 
-interface IVehiclesProviderProps {
+interface ICharactersProviderProps {
   children: React.ReactNode;
 }
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps);
 
-export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
+export const CharactersProvider: React.FC<ICharactersProviderProps> = ({
   children,
 }) => {
-  const [vehicles, setVehicles] = useState<VehicleType[]>([]);
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleType>();
+  const [characters, setCharacters] = useState<CharacterType[]>([]);
+  const [character, setCharacter] = useState<CharacterType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
-  const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchVehicles = useCallback(async (page: number, search?: string) => {
-    const limit = 10;
+  const fetchCharacters = useCallback(async (page: number, search?: string) => {
+    const limit = 20;
+    const offset = (page - 1) * limit;
 
     setCurrentPage(page);
     setIsLoading(true);
     setError(null);
 
-    try {
-      const {
-        data: { results, count },
-      } = await Api.get('vehicles/', { params: { search, page } });
+    const params = {
+      offset,
+      limit,
+      nameStartsWith: search?.length ? search : undefined,
+    };
 
-      setVehicles(normalizeVehicleData(results));
-      setTotalPages(Math.ceil(count / limit));
-      console.log('seacrh', search);
-      console.log('data', results);
+    try {
+      const response = await Api.get('/characters', { params });
+      setCharacters(response.data.data.results);
+      setTotalPages(Math.ceil(response.data.data.total / limit));
     } catch {
-      console.error('DEU ERRO');
+      setError('Erro: Não foipossível carregar os personagens');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const fetchCharacter = useCallback(async (id: number | string) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await Api.get(`characters/${id}`);
+      setCharacter(response.data.data.results[0]);
+    } catch {
+      setError('Erro: Personagem não encontrado');
     } finally {
       setIsLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchVehicles(1);
+    fetchCharacters(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -73,26 +86,22 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
     <ReactContext.Provider
       value={useMemo(
         () => ({
-          vehicles,
-          currentPage,
+          characters,
+          character,
           isLoading,
-          pages,
-          error,
           totalPages,
-          fetchVehicles,
-          selectedVehicle,
-          setSelectedVehicle,
+          currentPage,
+          fetchCharacters,
+          fetchCharacter,
         }),
         [
-          vehicles,
+          characters,
+          character,
           isLoading,
-          pages,
-          currentPage,
-          error,
-          fetchVehicles,
           totalPages,
-          selectedVehicle,
-          setSelectedVehicle,
+          currentPage,
+          fetchCharacters,
+          fetchCharacter,
         ],
       )}
     >
@@ -101,12 +110,12 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
   );
 };
 
-export const useVehicles = (): IContextProps => {
+export const useCharacters = (): IContextProps => {
   const context = useContext(ReactContext);
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('useVehicles must be within VehiclesProvider');
+    console.error('useCharacters must be within CharactersProvider');
   }
 
   return context;

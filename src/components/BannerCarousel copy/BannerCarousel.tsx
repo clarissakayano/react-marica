@@ -5,8 +5,7 @@ import axios from 'axios'
 import { BannerType } from 'components/types/BannerType'
 
 import Api from 'services/Api'
-import { Carousel, CarouselItem, NavItem } from 'react-bootstrap'
-import { Cover } from './styles'
+import { Carousel } from 'react-bootstrap'
 
 interface IBannerProps {
   children?: React.ReactNode
@@ -19,7 +18,7 @@ const BannerC: React.FC = () => {
     setIsLoading(true)
 
     try {
-      const { data } = await Api.get(`/banners`)
+      const { data } = await Api.get(`/banners/`)
       console.log('results', data)
     } catch {
       console.log('Não foi possível carregar')
@@ -34,17 +33,18 @@ const BannerC: React.FC = () => {
   }, [fetchBanners])
 
   return (
-
+    <>
       <h2>banner</h2>
       {isLoading && <p>Loading...</p>}
       {!isLoading && banners.map((banner) => (
         <Carousel>
-          <Carousel.Item >
-          <Cover capa={Item.capa} />
-          </Carousel.Item>
-         <Carousel />
-
-  )
-}
+         <Carousel.Item >
+         <img className="d-block w-100" src="/assets" alt="banner slide" />
+         </Carousel.Item>
+         </Carousel>
+      
+      )
+      </>
+    }
 
 export default memo(BannerC)

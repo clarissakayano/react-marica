@@ -11,7 +11,7 @@ const Routes: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" element={<Home />} />
-        <Route path="/address" element={<PontosTuristicos />} />
+        <Route path="/pontos-turisticos" element={<PontosTuristicos />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>
