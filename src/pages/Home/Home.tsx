@@ -39,6 +39,7 @@ import { Buttom } from 'Header/styles'
 import BannerCarousel from 'components/BannerCarousel'
 import Banners from 'components/BannersHome'
 import BannersHome from 'components/BannersHome'
+import { Link } from 'react-router-dom'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -68,7 +69,8 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn>Acessar</Btn>
+                 
+                  <Btn href="/pontos-turisticos" >Acessar</Btn>
                 </div>
               </Card>
             </Col>

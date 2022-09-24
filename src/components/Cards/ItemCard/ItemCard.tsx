@@ -8,30 +8,27 @@ import { CollectionType } from 'components/types/CategoryTypes'
 import { Cover, Title } from './styles'
 
 interface ICollectionTypeProps {
-  collection: CollectionType
+  item: CollectionType
   children?: React.ReactNode
 }
 
-const CategoryCard: React.FC<ICollectionTypeProps> = ({ collection }) => (
+const ItemCard: React.FC<ICollectionTypeProps> = ({ item }) => (
   <Card className="w-100">
     <Cover
       style={{
-        backgroundImage: `url(${collection.capa})`,
+        backgroundImage: `url(${item.capa})`,
       }}
     >
       <div />
     </Cover>
     <Card.Body>
       <Card.Title>
-        <Link
-          style={{ textDecoration: 'none' }}
-          to={`collection/${collection.id}`}
-        >
-          <Title key={collection.id}>{collection.nome}</Title>
+        <Link style={{ textDecoration: 'none' }} to={`item/${item.id}`}>
+          <Title key={item.id}>{item.nome}</Title>
         </Link>
       </Card.Title>
     </Card.Body>
   </Card>
 )
 
-export default memo(CategoryCard)
+export default memo(ItemCard)
