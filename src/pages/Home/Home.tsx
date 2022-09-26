@@ -1,6 +1,7 @@
 import { memo, useEffect } from 'react'
 
 import Header from 'Header/Header'
+import { Buttom } from 'Header/styles'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { FaUmbrellaBeach } from 'react-icons/fa'
@@ -14,6 +15,7 @@ import {
   RiRoadMapFill,
 } from 'react-icons/ri'
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
+import { Link } from 'react-router-dom'
 
 import appstore from 'assets/appstore.png'
 import googleapp from 'assets/googleapp.png'
@@ -21,6 +23,12 @@ import phone from 'assets/phone.png'
 
 import Config from 'Config'
 
+import { useBanners } from 'context/BannerContext'
+
+import BannerCarousel from 'components/BannerCarousel'
+import BannersH from 'components/BannersH'
+import Banners from 'components/BannersHome'
+import BannersHome from 'components/BannersHome'
 import HomeCards from 'components/Cards/HomeCards'
 import Footer from 'components/Footer/Footer'
 import LanguageSwitcher from 'components/LanguageSwitcher'
@@ -34,19 +42,13 @@ import {
   TextFooter,
   BgColor,
   Btn,
+  BgWhite,
 } from './styles'
-import { Buttom } from 'Header/styles'
-import BannerCarousel from 'components/BannerCarousel'
-import Banners from 'components/BannersHome'
-import BannersHome from 'components/BannersHome'
-import { Link } from 'react-router-dom'
-import { useBanners } from 'context/BannerContext'
-import BannersH from 'components/BannersH'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
-  const {fetchBanners} = useBanners()
+  const { fetchBanners } = useBanners()
 
   useEffect(() => {
     setTitle(t('home.head-title'))
@@ -72,9 +74,12 @@ const Home: React.FC = () => {
                     description="Conheça nossas praias, lagoas, grutas e outros pontos turísticos"
                   />
                 </div>
-                <a href="/pontos" style={{ textDecoration: 'none' }} className="d-flex justify-content-center mb-3">
-
-                  <Btn >Acessar</Btn>
+                <a
+                  href="/pontos"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
+                  <Btn>Acessar</Btn>
                 </a>
               </Card>
             </Col>
@@ -92,7 +97,7 @@ const Home: React.FC = () => {
                 </div>
 
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -109,7 +114,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -126,7 +131,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -143,7 +148,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -160,7 +165,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -177,7 +182,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>{' '}
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -194,7 +199,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>{' '}
+                  <Btn>Acessar</Btn>{' '}
                 </div>
               </Card>
             </Col>
@@ -211,7 +216,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
-                  <Btn >Acessar</Btn>
+                  <Btn>Acessar</Btn>
                 </div>
               </Card>
             </Col>
@@ -232,7 +237,7 @@ const Home: React.FC = () => {
               </SubTitle>
               <Row className="mt-auto text-center text-md-left">
                 <Col className="col-6 col-md-5 mb-3">
-                  <div >
+                  <div>
                     <img
                       className="img-fluid"
                       src={googleapp}
