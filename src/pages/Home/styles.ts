@@ -6,6 +6,12 @@ export const Container = styled.div`
     border: 1px solid rgb(110, 189, 0);
     background-color: transparent;
   }
+
+  .color Button {
+    color: #6ebd00;
+    border: 1px solid rgb(110, 189, 0);
+    background-color: transparent;
+  }
 `
 
 export const BgColor = styled.div`

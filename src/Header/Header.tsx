@@ -4,6 +4,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Offcanvas from 'react-bootstrap/Offcanvas'
+import { AiFillYoutube } from 'react-icons/ai'
 import { BsTwitter, BsYoutube } from 'react-icons/bs'
 import { FaBars, FaInstagram } from 'react-icons/fa'
 import { MdFacebook } from 'react-icons/md'
@@ -32,11 +33,12 @@ const Header: React.FC = () => (
           />
           <img className="img-fluid d-md-none " src={logo2} alt="marica" />
         </div>
-        <div className="d-flex h-100">
+        <div className="d-flex h-100 mt-3">
           <div className="d-none d-md-flex align-items-center justify-content-end">
             <BsTwitter color="white" />
             <BsYoutube color="white" />
             <FaInstagram color="white" />
+            <AiFillYoutube color="white" />
           </div>
         </div>
       </Container>

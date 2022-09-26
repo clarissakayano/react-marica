@@ -1,22 +1,29 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 
 import Header from 'Header/Header'
-import { Container } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { usePoints } from 'context/PontosContext'
 
 import ItemCard from 'components/Cards/ItemCard'
+import CategoryCard from 'components/CategoryCard/CategoryCard'
 
 import useTitle from 'hooks/useTitle'
 
 const TouristicsPoints: React.FC = () => {
   const [search, setSearch] = useState('')
-  const { fetchPoints, points, isLoading } = usePoints()
+  const { fetchPoints, points, isLoading, error } = usePoints()
 
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
+  const { id } = useParams()
+
+  const handleSearch = useCallback(
+    () => fetchPoints(search),
+    [fetchPoints, search],
+  )
 
   useEffect(() => {
     setTitle('Pontos-Turisticos')
@@ -26,13 +33,21 @@ const TouristicsPoints: React.FC = () => {
   return (
     <>
       <Header />
-      {isLoading && <p>Loading...</p>}
-      {!isLoading &&
-        points.map((point) => (
-          <div key={point.id}>
-            <h3>{point.name}</h3>
-          </div>
-        ))}
+      <Container>
+        {isLoading && <p>Loading...</p>}
+        {!isLoading && !error && (
+          <Row>
+            {points.map((category) => (
+              <div key={category.id}>
+                <Col>
+                  <CategoryCard category={category} />
+                  <h3>{category.name}</h3>
+                </Col>
+              </div>
+            ))}
+          </Row>
+        )}
+      </Container>
     </>
   )
 }

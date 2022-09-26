@@ -40,10 +40,13 @@ import BannerCarousel from 'components/BannerCarousel'
 import Banners from 'components/BannersHome'
 import BannersHome from 'components/BannersHome'
 import { Link } from 'react-router-dom'
+import { useBanners } from 'context/BannerContext'
+import BannersH from 'components/BannersH'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
+  const {fetchBanners} = useBanners()
 
   useEffect(() => {
     setTitle(t('home.head-title'))
@@ -53,7 +56,8 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <BannersHome />
+      <BannersH />
+
       <BgColor className="d-flex">
         <Container className="py-5">
           <Row className="d-flex justify-content-center">
@@ -68,10 +72,10 @@ const Home: React.FC = () => {
                     description="Conheça nossas praias, lagoas, grutas e outros pontos turísticos"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
-                 
-                  <Btn href="/pontos-turisticos" >Acessar</Btn>
-                </div>
+                <a href="/pontos" style={{ textDecoration: 'none' }} className="d-flex justify-content-center mb-3">
+
+                  <Btn >Acessar</Btn>
+                </a>
               </Card>
             </Col>
 
@@ -86,6 +90,7 @@ const Home: React.FC = () => {
                     description="Saiba onde se hospedar em Maricá"
                   />
                 </div>
+
                 <div className="d-flex justify-content-center mb-3">
                   <Btn >Acessar</Btn>
                 </div>
@@ -133,8 +138,7 @@ const Home: React.FC = () => {
                 </div>
                 <div className="d-flex justify-content-center">
                   <HomeCards
-                    title="Espaços para Eventos
-                  "
+                    title="Espaços para Eventos"
                     description="Locais para fazer suas festas ou reuniões"
                   />
                 </div>

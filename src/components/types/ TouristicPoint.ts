@@ -1,18 +1,18 @@
+import { CategoryType } from './CategoryTypes'
+
 export type TouristicPointType = {
   id: string
   name: string
   capa: string
   lat: string
   lng: string
-  categorias: {
-    id: string
-    label: string
-  }[]
-
+  categorias: CategoryType[]
   enderecos: {
     id: string
     lat: string
     lng: string
     label: string
-  }
+  }[]
 }
+
+export type ItemPointType = {

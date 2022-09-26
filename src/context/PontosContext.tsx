@@ -21,7 +21,7 @@ interface IContextProps {
   isLoading: boolean
   setIsLoading: boolean
   error: string | null
-  fetchPoints: Promise<void>
+  fetchPoints: () => Promise<void>
   fetchPoint: (id: number | string) => Promise<void>
   setPoints: Dispatch<SetStateAction<TouristicPointType | null>>
 }
@@ -47,6 +47,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     try {
       const { data } = await Api.get('/pontos')
       console.log('results', data)
+      setPoints(data)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
