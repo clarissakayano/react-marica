@@ -2,7 +2,7 @@ import { memo } from 'react'
 
 import { Card } from 'react-bootstrap'
 
-import { CollectionType } from 'components/types/CategoryTypes'
+import { CollectionType } from 'components/types/CollectionType'
 
 import { Cover } from './styles'
 

@@ -21,23 +21,17 @@ import appstore from 'assets/appstore.png'
 import googleapp from 'assets/googleapp.png'
 import phone from 'assets/phone.png'
 
-import Config from 'Config'
-
 import { useBanners } from 'context/BannerContext'
 
 import BannerCarousel from 'components/BannerCarousel'
 import BannersH from 'components/BannersH'
-import Banners from 'components/BannersHome'
-import BannersHome from 'components/BannersHome'
 import HomeCards from 'components/Cards/HomeCards'
 import Footer from 'components/Footer/Footer'
-import LanguageSwitcher from 'components/LanguageSwitcher'
 
 import useTitle from 'hooks/useTitle'
 
 import {
   BgColorFooter,
-  BgFooter,
   SubTitle,
   TextFooter,
   BgColor,
@@ -62,7 +56,7 @@ const Home: React.FC = () => {
 
       <BgColor className="d-flex">
         <Container className="py-5">
-          <Row className="d-flex justify-content-center">
+          <Row className="d-flex col justify-content-center">
             <Col className="col-6 col-md-4 mb-2">
               <Card className=" d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
                 <div className="d-flex justify-content-center py-2">

@@ -1,4 +1,4 @@
-import { CategoryType } from './CategoryTypes'
+import { CategoryType } from './CollectionType'
 
 export type TouristicPointType = {
   id: string

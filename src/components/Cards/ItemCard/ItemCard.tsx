@@ -3,24 +3,18 @@ import { memo } from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import { CollectionType } from 'components/types/CategoryType'
+import { CollectionType } from 'components/types/CollectionType'
 
 import { Cover, Title } from './styles'
 
 interface ICollectionTypeProps {
   item: CollectionType
   children?: React.ReactNode
-  onClick: (evt: any) => void
 }
 
-const ItemCard: React.FC<ICollectionTypeProps> = ({ item, onClick }) => (
+const ItemCard: React.FC<ICollectionTypeProps> = ({ item }) => (
   <Card className="w-100">
-    <Cover
-      style={{
-        backgroundImage: `url(${item.capa})`,
-      }}
-      onClick={onClick}
-    >
+    <Cover capa={item.capa}>
       <div />
     </Cover>
     <Card.Body>

@@ -23,9 +23,9 @@ const Header: React.FC = () => (
     <BgColor>
       <Container className="d-flex justify-content-between h-100 container">
         <div className="d-flex align-items-center">
-          <FaBars style={{ width: '15rem', color: 'white' }} />
+          <FaBars style={{ color: 'white' }} />
         </div>
-        <div>
+        <div className="d-flex justify-content-center">
           <img
             className="img-fluid d-none d-md-inline"
             src={logo}

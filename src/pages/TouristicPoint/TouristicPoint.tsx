@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect } from 'react'
 
 import Header from 'Header/Header'
 import { Container } from 'react-bootstrap'
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
@@ -34,12 +34,8 @@ const TouristicPoint: React.FC = () => {
       {isLoading && <p>Loading...</p>}
       {error && <h2>Não foi possível carregar...</h2>}
       {!isLoading && point && <p>{point.name}</p>}
-      {!isLoading && !error && point &&(
-        <>
-        <Carousel>
-          {!isLoading && !error && Array}
-        </Carousel>
-        </>
+      {!isLoading && !error && point && (
+        <Carousel>{!isLoading && !error && Array}</Carousel>
       )}
     </>
   )

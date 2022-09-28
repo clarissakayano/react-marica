@@ -1,7 +1,5 @@
 import {
   createContext,
-  Dispatch,
-  SetStateAction,
   useCallback,
   useContext,
   useEffect,
@@ -12,18 +10,21 @@ import {
 import { error } from 'console'
 
 import { TouristicPointType } from 'components/types/ TouristicPoint'
+import { CategoryType } from 'components/types/CategoryTypes'
+import { CollectionType } from 'components/types/CollectionType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
   points: TouristicPointType[]
   point: TouristicPointType | null
+  categories: CategoryType[]
+  collections: CollectionType[]
   isLoading: boolean
-  setIsLoading: boolean
+
   error: string | null
   fetchPoints: () => Promise<void>
   fetchPoint: (id: number | string) => Promise<void>
-  setPoints: Dispatch<SetStateAction<TouristicPointType | null>>
 }
 
 interface IPointsProviderProps {
@@ -37,17 +38,22 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
 }) => {
   const [points, setPoints] = useState<TouristicPointType[]>([])
   const [point, setPoint] = useState<TouristicPointType | null>(null)
+  const [categories, setCategories] = useState<CategoryType[]>([])
+  const [categorie, setCategorie] = useState<CategoryType[] | null>(null)
+  const [collections, setCollections] = useState<CollectionType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const fetchPoints = useCallback(async () => {
+    console.log('fetchPoints')
     setIsLoading(true)
     setError(null)
 
     try {
       const { data } = await Api.get('/pontos')
-      console.log('results', data)
-      setPoints(data)
+      setPoints(data.collection)
+      setCategories(data.categorias)
+      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -62,7 +68,6 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     try {
       const { data } = await Api.get(`/pontos/${id}`)
       setPoints(data.results[0])
-      console.log('results', data)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -70,10 +75,9 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  useEffect(() => {
-    fetchPoints()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  console.log('points', points)
+  console.log('categories', categories)
+  console.log('collections', collections)
 
   return (
     <ReactContext.Provider
@@ -81,22 +85,22 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
         () => ({
           point,
           points,
+          categories,
+          collections,
           isLoading,
           error,
           fetchPoints,
           fetchPoint,
-          setPoint,
-          setIsLoading,
         }),
         [
           point,
           points,
+          categories,
+          collections,
           isLoading,
           error,
           fetchPoints,
           fetchPoint,
-          setPoint,
-          setIsLoading,
         ],
       )}
     >
