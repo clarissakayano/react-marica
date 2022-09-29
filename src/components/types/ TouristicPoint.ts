@@ -2,7 +2,7 @@ import { CategoryType } from './CollectionType'
 
 export type TouristicPointType = {
   id: string
-  name: string
+  nome: string
   capa: string
   lat: string
   lng: string

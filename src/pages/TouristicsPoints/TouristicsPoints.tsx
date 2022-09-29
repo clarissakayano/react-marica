@@ -6,13 +6,12 @@ import { useTranslation } from 'react-i18next'
 
 import { usePoints } from 'context/PontosContext'
 
-import ItemCard from 'components/Cards/ItemCard'
-import CategoryCard from 'components/CategoryCard/CategoryCard'
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
 import { CategoriesColor } from './styles'
+import PointCard from 'components/PointCard/PointCard'
 
 const TouristicsPoints: React.FC = () => {
   const [search, setSearch] = useState('')
@@ -56,7 +55,6 @@ const TouristicsPoints: React.FC = () => {
           {!isLoading && points.map((point) => (
             <PointCard point={point} />
           ))}
-          
       </Container>
       <Footer />
     </>
