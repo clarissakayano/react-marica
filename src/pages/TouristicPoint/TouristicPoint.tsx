@@ -11,6 +11,7 @@ import { usePoints } from 'context/PontosContext'
 import ItemCard from 'components/Cards/ItemCard'
 
 import useTitle from 'hooks/useTitle'
+import Footer from 'components/Footer/Footer'
 
 const TouristicPoint: React.FC = () => {
   const { fetchPoint, point, isLoading, error } = usePoints()
@@ -37,6 +38,7 @@ const TouristicPoint: React.FC = () => {
       {!isLoading && !error && point && (
         <Carousel>{!isLoading && !error && Array}</Carousel>
       )}
+      <Footer />
     </>
   )
 }

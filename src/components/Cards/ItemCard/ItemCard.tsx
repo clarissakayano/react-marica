@@ -9,7 +9,6 @@ import { Cover, Title } from './styles'
 
 interface ICollectionTypeProps {
   item: CollectionType
-  children?: React.ReactNode
 }
 
 const ItemCard: React.FC<ICollectionTypeProps> = ({ item }) => (
