@@ -14,7 +14,7 @@ interface ICollectionTypeProps {
 
 const ItemCard: React.FC<ICollectionTypeProps> = ({ item }) => (
   <Card className="w-100">
-    <Cover className="mb-2  img-fluid" aspectRatio="1x1" capa={item.capa}>
+    <Cover aspectRatio="16x9" capa={item.capa}>
       <div />
     </Cover>
     <Card.Body>

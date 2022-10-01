@@ -24,6 +24,11 @@ export type ItemType = {
     lat: number
     lgn: number
   }[]
+  phones: {
+    id: number
+    nome: string
+    number: number
+  }[]
   categorias: {
     id: number
     label: string
@@ -42,4 +47,8 @@ export type ItemType = {
     id: number
     src: string
   }[]
+  viajantes: {
+    label: string
+  }[]
+  restricoes: []
 }
