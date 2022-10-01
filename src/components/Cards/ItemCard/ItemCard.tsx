@@ -9,11 +9,12 @@ import { Cover, Title } from './styles'
 
 interface ICollectionTypeProps {
   item: CollectionType
+  endPoint?: string
 }
 
 const ItemCard: React.FC<ICollectionTypeProps> = ({ item }) => (
   <Card className="w-100">
-    <Cover capa={item.capa}>
+    <Cover className="mb-2  img-fluid" aspectRatio="1x1" capa={item.capa}>
       <div />
     </Cover>
     <Card.Body>

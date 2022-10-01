@@ -7,15 +7,15 @@ import {
   useState,
 } from 'react'
 
-import { TouristicPointType } from 'components/types/ TouristicPoint'
-import { CategoryType } from 'components/types/CategoryTypes'
+import { ItemType, TouristicPointType } from 'components/types/ TouristicPoint'
+import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
   points: TouristicPointType[]
-  point: TouristicPointType | null
+  point: ItemType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
   isLoading: boolean
@@ -36,9 +36,9 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
   children,
 }) => {
   const [points, setPoints] = useState<TouristicPointType[]>([])
-  const [point, setPoint] = useState<TouristicPointType | null>(null)
+  const [point, setPoint] = useState<ItemType | undefined>()
   const [categories, setCategories] = useState<CategoryType[]>([])
-  const [categorie, setCategorie] = useState<CategoryType[] | null>(null)
+
   const [collections, setCollections] = useState<CollectionType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -81,12 +81,14 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
   }, [])
 
   const fetchPoint = useCallback(async (id: number | string) => {
+    console.log('fetchPoint')
+    console.log('ID')
     setIsLoading(true)
     setError(null)
 
     try {
       const { data } = await Api.get(`/pontos/${id}`)
-      setPoints(data.results[0])
+      setPoint(data.item)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -94,7 +96,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  console.log('points', points)
+  console.log('point', point)
   console.log('categories', categories)
   console.log('collections', collections)
 

@@ -1,4 +1,5 @@
 export type CategoryType = {
+  _id: Key | null | undefined
   id: number
   label: string
 }

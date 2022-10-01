@@ -9,7 +9,7 @@ export const Card1 = styled.div`
   justify-content: center;
   ul {
     display: flex;
-    padding-inline-start: 30px;
+    padding-inline-start: 10px;
     font-weight: 300;
     height: 20px;
   }

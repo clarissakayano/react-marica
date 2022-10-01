@@ -1,11 +1,13 @@
 import { CategoryType } from './CollectionType'
+import { ImageType } from './ImageType'
 
 export type TouristicPointType = {
-  id: string
+  id: number
   nome: string
   capa: string
   lat: string
   lng: string
+  images: ImageType
   categorias: CategoryType[]
   enderecos: {
     id: string
@@ -15,4 +17,29 @@ export type TouristicPointType = {
   }[]
 }
 
-export type ItemPointType = {
+export type ItemType = {
+  addresses: {
+    id: number
+    label: string
+    lat: number
+    lgn: number
+  }[]
+  categorias: {
+    id: number
+    label: string
+  }[]
+  descricao_t: string
+  dicas_t: string
+  estruturas: {
+    icone: string
+    label: string
+  }[]
+  formas_pagamento: []
+  gratuito: number
+  horario_funcionamento: []
+  id: number
+  images: {
+    id: number
+    src: string
+  }[]
+}

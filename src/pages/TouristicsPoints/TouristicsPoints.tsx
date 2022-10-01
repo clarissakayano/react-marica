@@ -34,7 +34,7 @@ const TouristicsPoints: React.FC = () => {
     setTitle('PontosTuristicos')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
-
+console.log('categories ', categories)
   return (
     <>
       <Header />
