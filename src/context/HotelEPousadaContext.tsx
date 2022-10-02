@@ -7,50 +7,50 @@ import {
   useState,
 } from 'react'
 
-import { ItemType, TouristicPointType } from 'components/types/ TouristicPoint'
+import { ItemType, TouristicHotelType } from 'components/types/ TouristicHotel'
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
+import { HotelType } from 'components/types/HotelType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
-  points: TouristicPointType[]
-  point: ItemType | undefined
+  hotels: HotelType[]
+  hotel: ItemType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
   isLoading: boolean
 
   error: string | null
-  fetchPoints: () => Promise<void>
-  fetchPoint: (id: number | string) => Promise<void>
-  searchPoints: (search: string) => Promise<void>
+  fetchHotels: () => Promise<void>
+  fetchHotel: (id: number | string) => Promise<void>
+  searchHotels: (search: string) => Promise<void>
 }
 
-interface IPointsProviderProps {
+interface IHotelProviderProps {
   children: React.ReactNode
 }
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps)
 
-export const PointsProvider: React.FC<IPointsProviderProps> = ({
-  children,
-}) => {
-  const [points, setPoints] = useState<TouristicPointType[]>([])
-  const [point, setPoint] = useState<ItemType | undefined>()
+export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
+  const [hotels, setHotels] = useState<HotelType[]>([])
+  const [hotel, setHotel] = useState<ItemType | undefined>()
   const [categories, setCategories] = useState<CategoryType[]>([])
 
   const [collections, setCollections] = useState<CollectionType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchPoints = useCallback(async () => {
-    console.log('fetchPoints')
+  const fetchHotels = useCallback(async () => {
+    console.log('fetchHotels')
     setIsLoading(true)
     setError(null)
 
     try {
-      const { data } = await Api.get('/pontos')
-      setPoints(data.collection)
+      const { data } = await Api.get('/hoteis-e-pousadas')
+      console.log('data', data)
+      setHotels(data.collection)
       setCategories(data.categorias)
       setCollections(data.collection)
     } catch {
@@ -60,7 +60,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  const searchPoints = useCallback(async (search: string) => {
+  const searchHotels = useCallback(async (search: string) => {
     setIsLoading(true)
     setError(null)
 
@@ -69,8 +69,8 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
 
     try {
-      const { data } = await Api.get('/pontos/busca', { params })
-      setPoints(data.collection)
+      const { data } = await Api.get('/hoteis-e-pousadas', { params })
+      setHotels(data.collection)
       setCategories(data.categorias)
       setCollections(data.collection)
     } catch {
@@ -80,15 +80,15 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  const fetchPoint = useCallback(async (id: number | string) => {
-    console.log('fetchPoint')
+  const fetchHotel = useCallback(async (id: number | string) => {
+    console.log('fetchHotel')
     console.log('ID')
     setIsLoading(true)
     setError(null)
 
     try {
-      const { data } = await Api.get(`/pontos/${id}`)
-      setPoint(data.item)
+      const { data } = await Api.get(`/hoteis-e-pousadas/${id}`)
+      setHotel(data.item)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -96,7 +96,12 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  console.log('point', point)
+  useEffect(() => {
+    fetchHotels()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  console.log('hotel', hotel)
   console.log('categories', categories)
   console.log('collections', collections)
 
@@ -104,26 +109,26 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     <ReactContext.Provider
       value={useMemo(
         () => ({
-          point,
-          points,
+          hotel,
+          hotels,
           categories,
           collections,
           isLoading,
           error,
-          fetchPoints,
-          fetchPoint,
-          searchPoints,
+          fetchHotels,
+          fetchHotel,
+          searchHotels,
         }),
         [
-          point,
-          points,
+          hotel,
+          hotels,
           categories,
           collections,
           isLoading,
           error,
-          fetchPoints,
-          fetchPoint,
-          searchPoints,
+          fetchHotels,
+          fetchHotel,
+          searchHotels,
         ],
       )}
     >
@@ -132,12 +137,12 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
   )
 }
 
-export const usePoints = (): IContextProps => {
+export const useHotels = (): IContextProps => {
   const context = useContext(ReactContext)
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('usePoints must be within PointsProvider')
+    console.error('useHotels must be within HotelsProvider')
   }
 
   return context

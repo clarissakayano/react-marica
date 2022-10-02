@@ -9,15 +9,18 @@ import { BannersProvider } from 'context/BannerContext'
 import { PointsProvider } from 'context/PontosContext'
 
 import App from './App'
+import { HotelsProvider } from 'context/HotelEPousadaContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense>
+      <HotelsProvider>
       <PointsProvider>
         <BannersProvider>
           <App />
         </BannersProvider>
       </PointsProvider>
+      </HotelsProvider>
     </Suspense>
   </React.StrictMode>,
 )
