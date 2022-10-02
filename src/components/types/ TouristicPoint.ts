@@ -46,9 +46,14 @@ export type ItemType = {
   images: {
     id: number
     src: string
+    legenda: {
+      pt_BR: string
+    }
   }[]
   viajantes: {
     label: string
   }[]
-  restricoes: []
+  restricoes: {
+    label: string
+  }[]
 }

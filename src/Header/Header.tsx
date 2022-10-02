@@ -35,10 +35,18 @@ const Header: React.FC = () => (
         </div>
         <div className="d-flex h-100 mt-3">
           <div className="d-none d-md-flex align-items-center justify-content-end">
-            <BsTwitter color="white" />
-            <BsYoutube color="white" />
-            <FaInstagram color="white" />
-            <AiFillYoutube color="white" />
+            <div className="me-2">
+              <BsTwitter color="white" />
+            </div>
+            <div className="me-2">
+              <BsYoutube color="white" />
+            </div>
+            <div className="me-2">
+              <FaInstagram color="white" />
+            </div>
+            <div className="me-2">
+              <AiFillYoutube color="white" />
+            </div>
           </div>
         </div>
       </Container>

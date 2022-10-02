@@ -23,14 +23,17 @@ const Footer: React.FC = () => {
           <Row className="row-col">
             <Col className="d-flex justify-content-start flex-column ">
               <div className="d-flex justify-content-center jutify-content-xl-start mb-2">
-                <MdFacebook color="white" />
+                <MdFacebook className="me-2" color="white" />
                 <span className="d-none d-md-inline mr-3">Facebook</span>
-                <FaInstagram color="white" />
-                <span className="d-none d-md-inline mr-3">Instagram</span>
+
+                <FaInstagram className="me-2" color="white" />
+                <span className="d-none d-md-inline mr-3 me-2">Instagram</span>
+
                 <BsTwitter color="white" />
-                <span className="d-none d-md-inline mr-3">Twitter</span>
-                <BsYoutube color="white" />
-                <span className="d-none d-md-inline mr-3">Youtube</span>
+                <span className="d-none d-md-inline mr-3 me-2">Twitter</span>
+
+                <BsYoutube className="me-2" color="white" />
+                <span className="d-none d-md-inline mr-3 me-2">Youtube</span>
               </div>
               <div className="d-flex justify-content-center mb-2">
                 <div className="text-center text-xl-left">
