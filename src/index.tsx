@@ -11,10 +11,12 @@ import { PointsProvider } from 'context/PontosContext'
 import { RestaurantsProvider } from 'context/RestaurantesContext'
 
 import App from './App'
+import { CommercesProvider } from 'context/CommerceContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense>
+      <CommercesProvider>
       <RestaurantsProvider>
         <HotelsProvider>
           <PointsProvider>
@@ -24,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           </PointsProvider>
         </HotelsProvider>
       </RestaurantsProvider>
+      </CommercesProvider>
     </Suspense>
   </React.StrictMode>,
 )

@@ -13,44 +13,44 @@ import { ItemType } from 'components/types/ItemType'
 import Api from 'services/Api'
 
 interface IContextProps {
-  restaurants: CollectionType[]
-  restaurant: ItemType | undefined
+  commerces: CollectionType[]
+  commerce: ItemType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
   isLoading: boolean
 
   error: string | null
-  fetchRestaurants: () => Promise<void>
-  fetchRestaurant: (id: number | string) => Promise<void>
-  searchRestaurants: (search: string) => Promise<void>
+  fetchCommerces: () => Promise<void>
+  fetchCommerce: (id: number | string) => Promise<void>
+  searchCommerces: (search: string) => Promise<void>
 }
 
-interface IRestaurantProviderProps {
+interface ICommerceProviderProps {
   children: React.ReactNode
 }
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps)
 
-export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
+export const CommercesProvider: React.FC<ICommerceProviderProps> = ({
   children,
 }) => {
-  const [restaurants, setRestaurants] = useState<CollectionType[]>([])
-  const [restaurant, setRestaurant] = useState<ItemType | undefined>()
+  const [commerces, setCommerces] = useState<CollectionType[]>([])
+  const [commerce, setCommerce] = useState<ItemType | undefined>()
   const [categories, setCategories] = useState<CategoryType[]>([])
 
   const [collections, setCollections] = useState<CollectionType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchRestaurants = useCallback(async () => {
-    console.log('fetchRestaurants')
+  const fetchCommerces = useCallback(async () => {
+    console.log('fetchCommerces')
     setIsLoading(true)
     setError(null)
 
     try {
-      const { data } = await Api.get('/restaurantes')
+      const { data } = await Api.get('/comercios')
       console.log('results', data)
-      setRestaurants(data.collection)
+      setCommerces(data.collection)
       setCategories(data.categorias)
       setCollections(data.collection)
     } catch {
@@ -60,7 +60,7 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     }
   }, [])
 
-  const searchRestaurants = useCallback(async (search: string) => {
+  const searchCommerces = useCallback(async (search: string) => {
     setIsLoading(true)
     setError(null)
 
@@ -69,8 +69,9 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     }
 
     try {
-      const { data } = await Api.get('/restaurantes', { params })
-      setRestaurants(data.collection)
+      const { data } = await Api.get('/comercios', { params })
+      setCommerces(data.collection)
+      console.log('setCommerces', setCommerces)
       setCategories(data.categorias)
       setCollections(data.collection)
     } catch {
@@ -80,15 +81,15 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     }
   }, [])
 
-  const fetchRestaurant = useCallback(async (id: number | string) => {
-    console.log('fetchRestaurante')
+  const fetchCommerce = useCallback(async (id: number | string) => {
+    console.log('fetchCommercee')
     console.log('ID')
     setIsLoading(true)
     setError(null)
 
     try {
-      const { data } = await Api.get(`/restaurantes/${id}`)
-      setRestaurant(data.item)
+      const { data } = await Api.get(`/comercios/${id}`)
+      setCommerce(data.item)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -102,26 +103,26 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     <ReactContext.Provider
       value={useMemo(
         () => ({
-          restaurant,
-          restaurants,
+          commerce,
+          commerces,
           categories,
           collections,
           isLoading,
           error,
-          fetchRestaurants,
-          fetchRestaurant,
-          searchRestaurants,
+          fetchCommerces,
+          fetchCommerce,
+          searchCommerces,
         }),
         [
-          restaurant,
-          restaurants,
+          commerce,
+          commerces,
           categories,
           collections,
           isLoading,
           error,
-          fetchRestaurants,
-          fetchRestaurant,
-          searchRestaurants,
+          fetchCommerces,
+          fetchCommerce,
+          searchCommerces,
         ],
       )}
     >
@@ -130,13 +131,13 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
   )
 }
 
-export const useRestaurants = (): IContextProps => {
-  console.log('useRestaurants', useRestaurants)
+export const useCommerces = (): IContextProps => {
+  console.log('useCommerces', useCommerces)
   const context = useContext(ReactContext)
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('useRestaurants must be within RestaurantsProvider')
+    console.error('useCommerces must be within CommercesProvider')
   }
 
   return context

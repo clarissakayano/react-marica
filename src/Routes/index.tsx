@@ -2,6 +2,8 @@ import { memo } from 'react'
 
 import { BrowserRouter, Routes as Switch, Route } from 'react-router-dom'
 
+import Comercio from 'pages/Comercio'
+import Comercios from 'pages/Comercios'
 import Home from 'pages/Home'
 import HoteisEPousadas from 'pages/HoteisEPousadas'
 import HotelEPousada from 'pages/HotelEPousada'
@@ -22,6 +24,8 @@ const Routes: React.FC = () => {
         <Route path="/hoteis-e-pousadas/:id" element={<HotelEPousada />} />
         <Route path="/restaurantes" element={<Restaurantes />} />
         <Route path="/restaurantes/:id" element={<Restaurant />} />
+        <Route path="/comercios" element={<Comercios />} />
+        <Route path="/comercios/:id" element={<Comercio />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>

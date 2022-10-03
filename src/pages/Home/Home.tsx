@@ -131,9 +131,13 @@ const Home: React.FC = () => {
                     description="Veja onde fazer as suas compras"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
+                <a
+                  href="/comercios"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
                   <Btn>Acessar</Btn>
-                </div>
+                </a>
               </Card>
             </Col>
 
