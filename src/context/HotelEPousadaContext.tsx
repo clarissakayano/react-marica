@@ -7,15 +7,14 @@ import {
   useState,
 } from 'react'
 
-import { ItemType, TouristicHotelType } from 'components/types/ TouristicHotel'
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
-import { HotelType } from 'components/types/HotelType'
+import { ItemType, HotelType } from 'components/types/HotelType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
-  hotels: HotelType[]
+  hotels: CollectionType[]
   hotel: ItemType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
@@ -49,7 +48,7 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
 
     try {
       const { data } = await Api.get('/hoteis-e-pousadas')
-      console.log('data', data)
+      console.log('results', data)
       setHotels(data.collection)
       setCategories(data.categorias)
       setCollections(data.collection)
@@ -71,6 +70,7 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
     try {
       const { data } = await Api.get('/hoteis-e-pousadas', { params })
       setHotels(data.collection)
+      console.log('setHotels', setHotels)
       setCategories(data.categorias)
       setCollections(data.collection)
     } catch {
@@ -96,13 +96,6 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
     }
   }, [])
 
-  useEffect(() => {
-    fetchHotels()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  console.log('hotel', hotel)
-  console.log('categories', categories)
   console.log('collections', collections)
 
   return (
@@ -138,6 +131,7 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
 }
 
 export const useHotels = (): IContextProps => {
+  console.log('useHotels', useHotels)
   const context = useContext(ReactContext)
 
   if (!context) {

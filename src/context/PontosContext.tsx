@@ -50,6 +50,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
 
     try {
       const { data } = await Api.get('/pontos')
+      console.log('fetchPoints')
       setPoints(data.collection)
       setCategories(data.categorias)
       setCollections(data.collection)

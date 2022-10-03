@@ -47,7 +47,7 @@ export const BannersProvider: React.FC<IBannersProviderProps> = ({
 
     try {
       const { data } = await Api.get('/banners')
-      console.log('results', data)
+
       setBanners(data)
     } catch {
       console.log('deu erro')

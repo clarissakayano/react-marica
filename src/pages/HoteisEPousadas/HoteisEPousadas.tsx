@@ -6,38 +6,42 @@ import { useTranslation } from 'react-i18next'
 import { BiSearch } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 
-import { usePoints } from 'context/PontosContext'
+import { useHotels } from 'context/HotelEPousadaContext'
 
 import Footer from 'components/Footer/Footer'
+import GeralCard from 'components/GeralCard/GeralCard'
 import PointCard from 'components/PointCard/PointCard'
 
 import useTitle from 'hooks/useTitle'
 
 import { BgColor, CategoriesColor } from './styles'
 
-const TouristicsPoints: React.FC = () => {
+const HoteisEPousadas: React.FC = () => {
   const [search, setSearch] = useState('')
-  const { fetchPoints, points, isLoading, error, categories, searchPoints } =
-    usePoints()
+  const { fetchHotels, hotels, isLoading, error, categories, searchHotels } =
+    useHotels()
+
+  console.log('useHotels', useHotels)
 
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
 
   const handleSearch = useCallback(
-    () => searchPoints(search),
-    [searchPoints, search],
+    () => searchHotels(search),
+    [searchHotels, search],
   )
 
   useEffect(() => {
-    fetchPoints()
+    fetchHotels()
+    console.log('fetchHotelsPAGE', fetchHotels)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    setTitle('PontosTuristicos')
+    setTitle('HoteisEPousadas')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
-
+  console.log('page')
   return (
     <>
       <Header />
@@ -46,7 +50,7 @@ const TouristicsPoints: React.FC = () => {
           <Row className="mt-3">
             <Col>
               <Link to="/">
-                <h1>Pontos Turísticos</h1>
+                <h1>Hoteis e Pousadas</h1>
               </Link>
             </Col>
             <Col>
@@ -78,10 +82,12 @@ const TouristicsPoints: React.FC = () => {
           </div>
           <div className="d-flex flex-wrap mb-4 mt-2 g-3">
             {!isLoading &&
-              points.map((point) => (
-                <Row key={point.id} className="flex-nowrap flex-md-wrap">
+              hotels.map((hotel) => (
+                <Row key={hotel.id} className="flex-nowrap flex-md-wrap">
                   <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                    <PointCard point={point} />
+                    <Link to={`/hoteis-e-pousadas/${hotel.id}`}>
+                      <GeralCard item={hotel} />
+                    </Link>
                   </Col>
                 </Row>
               ))}
@@ -92,4 +98,4 @@ const TouristicsPoints: React.FC = () => {
     </>
   )
 }
-export default memo(TouristicsPoints)
+export default memo(HoteisEPousadas)

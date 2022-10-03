@@ -1,1 +1,1 @@
-export { default } from './TouristicsPoints'
+export { default } from './HoteisEPousadas'

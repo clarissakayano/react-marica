@@ -1,5 +1,4 @@
 export type CategoryType = {
-  _id: Key | null | undefined
   id: number
   label: string
 }
@@ -13,8 +12,9 @@ export type AddressType = {
 export type CollectionType = {
   id: number
   nome: string | null
-  capa: string | null
+  capa: string | undefined
   lat: number | null
   lng: number | null
   endereco: AddressType[]
+  categorias: CategoryType[]
 }
