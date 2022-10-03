@@ -8,19 +8,22 @@ import 'services/i18n'
 import { BannersProvider } from 'context/BannerContext'
 import { HotelsProvider } from 'context/HotelEPousadaContext'
 import { PointsProvider } from 'context/PontosContext'
+import { RestaurantsProvider } from 'context/RestaurantesContext'
 
 import App from './App'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense>
-      <HotelsProvider>
-        <PointsProvider>
-          <BannersProvider>
-            <App />
-          </BannersProvider>
-        </PointsProvider>
-      </HotelsProvider>
+      <RestaurantsProvider>
+        <HotelsProvider>
+          <PointsProvider>
+            <BannersProvider>
+              <App />
+            </BannersProvider>
+          </PointsProvider>
+        </HotelsProvider>
+      </RestaurantsProvider>
     </Suspense>
   </React.StrictMode>,
 )

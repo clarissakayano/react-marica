@@ -41,8 +41,15 @@ export type ItemType = {
   }[]
   formas_pagamento: []
   gratuito: number
-  horario_funcionamento: []
+  horario_funcionamento: {
+    label: string
+    horario: {
+      abre: string
+      fecha: string
+    }
+  }[]
   id: number
+  label: string
   images: {
     id: number
     src: string
@@ -55,8 +62,19 @@ export type ItemType = {
     icone: string
     url: string
     user: string
+    site: null
   }[]
   restricoes: {
     label: string
   }[]
+  faixa_preco: number
+  cozinhas: {
+    label: string
+    refeicoes: {
+      label: string
+    }
+  }
+  refeicoes: {
+    label: string
+  }
 }

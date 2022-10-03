@@ -89,10 +89,13 @@ const Home: React.FC = () => {
                     description="Saiba onde se hospedar em Maricá"
                   />
                 </div>
-
-                <div className="d-flex justify-content-center mb-3">
+                <a
+                  href="/hoteis-e-pousadas"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
                   <Btn>Acessar</Btn>
-                </div>
+                </a>
               </Card>
             </Col>
 
@@ -103,13 +106,17 @@ const Home: React.FC = () => {
                 </div>
                 <div className="d-flex justify-content-center">
                   <HomeCards
-                    title="Hotéis e Pousadas"
+                    title="Bares e Restaurantes"
                     description="Saiba onde se hospedar em Maricá"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
+                <a
+                  href="/restaurantes"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
                   <Btn>Acessar</Btn>
-                </div>
+                </a>
               </Card>
             </Col>
 
