@@ -3,6 +3,7 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import Header from 'Header/Header'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ import PointCard from 'components/PointCard/PointCard'
 
 import useTitle from 'hooks/useTitle'
 
-import { BgColor, CategoriesColor } from './styles'
+import { BgColor, CategoriesColor, Inp, Title } from './styles'
 
 const TouristicsPoints: React.FC = () => {
   const [search, setSearch] = useState('')
@@ -43,33 +44,52 @@ const TouristicsPoints: React.FC = () => {
       <Header />
       <BgColor>
         <Container className="flex-grow-1">
-          <Row className="mt-3">
-            <Col>
-              <Link to="/">
-                <h1>Pontos Turísticos</h1>
-              </Link>
+          <Row className="mt-3 pt-3 pt-md-4 pb-4">
+            <Col className="col-md-6">
+              <div className="d-flex align-items-center mb-4 mb-md-0">
+                <div className="d-flex">
+                  <Link to="/">
+                    <AiOutlineArrowLeft
+                      size="22"
+                      height="22"
+                      width="22"
+                      className="me-2"
+                    />
+                  </Link>
+                </div>
+                <div>
+                  <Title>Pontos Turísticos</Title>
+                </div>
+              </div>
             </Col>
             <Col>
-              <input
-                type="text"
-                placeholder="Buscar Pontos Turísticos"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Button type="button" onClick={handleSearch}>
-                <BiSearch color="black" />
-              </Button>
+              <div className="flex-grow-1">
+                <Inp>
+                  <input
+                    type="text"
+                    placeholder="Buscar Pontos Turísticos"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <Button
+                    className="flex-shrink"
+                    type="submit"
+                    onClick={handleSearch}
+                  >
+                    <BiSearch color="black" />
+                  </Button>
+                </Inp>
+              </div>
             </Col>
           </Row>
-
           <div className="d-flex flex-wrap mb-4 mt-2">
             {isLoading && <p>Loading...</p>}
             {!isLoading &&
               !error &&
               categories.map((category) => (
                 <ul key={category.id}>
-                  <li className="d-flex flex-nowrap overflow-sm-scroll">
-                    <CategoriesColor className="me-3">
+                  <li className="d-flex ">
+                    <CategoriesColor className="me-2">
                       {category.label}
                     </CategoriesColor>
                   </li>

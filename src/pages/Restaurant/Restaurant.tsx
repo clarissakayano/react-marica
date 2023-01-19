@@ -4,6 +4,7 @@ import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
 import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
+import { AiOutlineMail } from 'react-icons/ai'
 import { FiPhone } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import { RiMapPinLine } from 'react-icons/ri'
@@ -18,7 +19,6 @@ import Footer from 'components/Footer/Footer'
 import useTitle from 'hooks/useTitle'
 
 import { CategoriesColor, Title } from './styles'
-import { AiOutlineMail } from 'react-icons/ai'
 
 const Restaurant: React.FC = () => {
   const { fetchRestaurant, restaurant, isLoading, error } = useRestaurants()
@@ -58,7 +58,9 @@ const Restaurant: React.FC = () => {
           <Container>
             <Row className="mb-4">
               <Col className="col-12 col-lg-8">
-                <h2>{restaurant.nome}</h2>
+                <a href="/restaurantes">
+                  <h2>{restaurant.nome}</h2>
+                </a>
                 <div className="d-flex flex-wrap mt-3">
                   {!isLoading &&
                     !error &&
@@ -102,8 +104,7 @@ const Restaurant: React.FC = () => {
               </p>
             ))}
             {restaurant.horario_funcionamento.map((p) => (
-              <p  className="me-2" key={p.id}>
-
+              <p className="me-2" key={p.id}>
                 {p.label} {p.horario.abre} às {p.horario.fecha}
               </p>
             ))}
@@ -114,8 +115,6 @@ const Restaurant: React.FC = () => {
                 <p>{restaurant.dicas_t}</p>
               </div>
             )}
-
-
 
             {Array.isArray(restaurant.viajantes) && (
               <div className="mt-4">

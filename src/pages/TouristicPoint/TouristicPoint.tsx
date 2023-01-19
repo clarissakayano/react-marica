@@ -9,7 +9,7 @@ import { FiPhone } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import { RiMapPinLine } from 'react-icons/ri'
 import SVG from 'react-inlinesvg'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { usePoints } from 'context/PontosContext'
 
@@ -58,7 +58,9 @@ const TouristicPoint: React.FC = () => {
           <Container>
             <Row className="mb-4">
               <Col className="col-12 col-lg-8">
-                <h2>{point.nome}</h2>
+                <a href="/pontos">
+                  <h2>{point.nome}</h2>
+                </a>
                 <div className="d-flex flex-wrap mt-3">
                   {!isLoading &&
                     !error &&

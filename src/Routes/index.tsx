@@ -10,6 +10,7 @@ import HotelEPousada from 'pages/HotelEPousada'
 import NotFound from 'pages/NotFound'
 import Restaurant from 'pages/Restaurant'
 import Restaurantes from 'pages/Restaurantes'
+import Spaces from 'pages/Spaces'
 import TouristicPoint from 'pages/TouristicPoint'
 import TouristicsPoints from 'pages/TouristicsPoints'
 
@@ -26,6 +27,7 @@ const Routes: React.FC = () => {
         <Route path="/restaurantes/:id" element={<Restaurant />} />
         <Route path="/comercios" element={<Comercios />} />
         <Route path="/comercios/:id" element={<Comercio />} />
+        <Route path="/espacos" element={<Spaces />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>

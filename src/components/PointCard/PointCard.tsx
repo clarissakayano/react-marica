@@ -32,8 +32,12 @@ const PointCard: React.FC<ITouristicPointTypeProps> = ({ point }) => (
       <CardTitle>{point.nome}</CardTitle>
       <ul className="flex-wrap mt-2">
         {point.categorias.slice(0, 4).map((categorias) => (
-          <li className="mt-2 px-1 mb-2" style={{ textDecoration: 'none' }}>
-            <CategoryText key={categorias.id}>{categorias.label}</CategoryText>
+          <li
+            key={categorias.id}
+            className="mt-2 px-1 mb-2"
+            style={{ textDecoration: 'none' }}
+          >
+            <CategoryText>{categorias.label}</CategoryText>
           </li>
         ))}
       </ul>

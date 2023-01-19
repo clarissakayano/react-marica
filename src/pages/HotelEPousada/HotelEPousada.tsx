@@ -8,7 +8,7 @@ import { FiPhone } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import { RiMapPinLine } from 'react-icons/ri'
 import SVG from 'react-inlinesvg'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { useHotels } from 'context/HotelEPousadaContext'
 
@@ -57,7 +57,9 @@ const HotelEPousada: React.FC = () => {
           <Container>
             <Row className="mb-4">
               <Col className="col-12 col-lg-8">
-                <h2>{hotel.nome}</h2>
+                <Link to="/hoteis-e-pousadas">
+                  <h2>{hotel.nome}</h2>
+                </Link>
                 <div className="d-flex flex-wrap mt-3">
                   {!isLoading &&
                     !error &&

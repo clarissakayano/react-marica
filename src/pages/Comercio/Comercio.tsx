@@ -59,7 +59,9 @@ const Commerce: React.FC = () => {
           <Container>
             <Row className="mb-4">
               <Col className="col-12 col-lg-8">
-                <h2>{commerce.nome}</h2>
+                <a href="/comercios">
+                  <h2>{commerce.nome}</h2>
+                </a>
                 <div className="d-flex flex-wrap mt-3">
                   {!isLoading &&
                     !error &&
@@ -143,7 +145,12 @@ const Commerce: React.FC = () => {
                   {commerce.formas_pagamento.map((p) => (
                     <Col className="d-flex align items-center">
                       <p>
-                        <SVG className="me-2" src={p.icone} fill="#6ebd00" />
+                        <SVG
+                          className="me-2"
+                          src={p.icone}
+                          fill="#6ebd00"
+                          width={20}
+                        />
                         {p.label}
                       </p>
                     </Col>

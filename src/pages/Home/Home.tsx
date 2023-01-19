@@ -4,7 +4,7 @@ import Header from 'Header/Header'
 import { Buttom } from 'Header/styles'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { FaUmbrellaBeach } from 'react-icons/fa'
+import { FaRoute, FaUmbrellaBeach } from 'react-icons/fa'
 import { GiMicrophone } from 'react-icons/gi'
 import { IoMdFlower } from 'react-icons/io'
 import { MdLocationCity } from 'react-icons/md'
@@ -12,7 +12,6 @@ import {
   RiHotelBedFill,
   RiRestaurantFill,
   RiCalendar2Fill,
-  RiRoadMapFill,
 } from 'react-icons/ri'
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
 import { Link } from 'react-router-dom'
@@ -23,21 +22,13 @@ import phone from 'assets/phone.png'
 
 import { useBanners } from 'context/BannerContext'
 
-import BannerCarousel from 'components/BannerCarousel'
 import BannersH from 'components/BannersH'
 import HomeCards from 'components/Cards/HomeCards'
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import {
-  BgColorFooter,
-  SubTitle,
-  TextFooter,
-  BgColor,
-  Btn,
-  BgWhite,
-} from './styles'
+import { BgColorFooter, SubTitle, TextFooter, BgColor, Btn } from './styles'
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -152,9 +143,13 @@ const Home: React.FC = () => {
                     description="Locais para fazer suas festas ou reuniões"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
+                <a
+                  href="/espacos"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
                   <Btn>Acessar</Btn>
-                </div>
+                </a>
               </Card>
             </Col>
 
@@ -169,21 +164,25 @@ const Home: React.FC = () => {
                     description="Confira o calendário de eventos da cidade"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
+                <a
+                  href="/evento"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
                   <Btn>Acessar</Btn>
-                </div>
+                </a>
               </Card>
             </Col>
 
             <Col className="col-6 col-md-4 mb-2">
               <Card className="d-flex flex-column align-items-center text-center py-3 px-2 rounded h-100 border-0">
                 <div className="d-flex justify-content-center py-2">
-                  <RiCalendar2Fill size={48} />
+                  <FaRoute size={48} />
                 </div>
                 <div className="d-flex justify-content-center">
                   <HomeCards
-                    title="Eventos"
-                    description="Confira o calendário de eventos da cidade"
+                    title="Roteiros turísticos"
+                    description="Conheça diversas trilhas ecológicas e de aventura, com variados níveis de dificuldade."
                   />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
@@ -203,9 +202,13 @@ const Home: React.FC = () => {
                     description="Conheça e compre as criações dos artesãos de Maricá/RJ"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
-                  <Btn>Acessar</Btn>{' '}
-                </div>
+                <a
+                  href="/https://www.feirartemarica.com.br/"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
+                  <Btn>Acessar</Btn>
+                </a>
               </Card>
             </Col>
 
