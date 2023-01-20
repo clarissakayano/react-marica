@@ -1,11 +1,11 @@
-import { memo, ReactElement, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 import axios from 'axios'
+import { Carousel } from 'react-bootstrap'
 
 import { BannerType } from 'components/types/BannerType'
 
 import Api from 'services/Api'
-import { Carousel } from 'react-bootstrap'
 
 interface IBannerProps {
   children?: React.ReactNode
@@ -36,15 +36,16 @@ const BannerC: React.FC = () => {
     <>
       <h2>banner</h2>
       {isLoading && <p>Loading...</p>}
-      {!isLoading && banners.map((banner) => (
-        <Carousel>
-         <Carousel.Item >
-         <img className="d-block w-100" src="/assets" alt="banner slide" />
-         </Carousel.Item>
-         </Carousel>
-      
-      )
-      </>
-    }
+      {!isLoading &&
+        banners.map((banner) => (
+          <Carousel>
+            <Carousel.Item>
+              <img className="d-block w-100" src="/assets" alt="banner slide" />
+            </Carousel.Item>
+          </Carousel>
+        ))}
+    </>
+  )
+}
 
 export default memo(BannerC)
