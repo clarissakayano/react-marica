@@ -5,7 +5,7 @@ import { Card, Container } from 'react-bootstrap'
 import { IconType } from 'react-icons'
 import { FaUmbrellaBeach } from 'react-icons/fa'
 
-import { Description, HomeCardContainer, Text } from './styles'
+import { Description, Text } from './styles'
 
 interface IHomeCardsProps {
   title?: string

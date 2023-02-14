@@ -1,4 +1,3 @@
-import { Container } from 'react-bootstrap'
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
@@ -10,18 +9,26 @@ export default createGlobalStyle`
 
 
 
+html, body, #root {
+   min-height: 100vh;
+}
+
+body{
+    background-color: #f5f5f5;
+}
+
 a:link {
-    color: red;
+    color: white;
     text-decoration: none;
 
 }
 
 a:visited {
-    color: red;
+    color: white;
 }
 
 a:hover {
-    color: green;
+    color:white;
 }
 
 

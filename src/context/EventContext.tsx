@@ -33,6 +33,7 @@ export const EventsProvider: React.FC<IEventProviderProps> = ({ children }) => {
   const [error, setError] = useState<string | null>(null)
 
   const fetchEvents = useCallback(async () => {
+    console.log('fetchEvents')
     setIsLoading(true)
     setError(null)
 

@@ -13,52 +13,67 @@ import maricaprotege from 'assets/marica-protege.png'
 import marica from 'assets/maricafooter.png'
 import phone from 'assets/phone.png'
 
-import { BgF, TextWhite } from './styles'
+import { BgF, Footer1, TextWhite } from './styles'
 
 const Footer: React.FC = () => {
   return (
-    <footer>
+    <Footer1>
       <BgF>
         <Container className="d-flex py-5 py-md-3">
-          <Row className="row-col">
-            <Col className="d-flex justify-content-start flex-column ">
-              <div className="d-flex justify-content-center jutify-content-xl-start mb-2">
-                <MdFacebook className="me-2" color="white" />
-                <span className="d-none d-md-inline mr-3">Facebook</span>
-
-                <FaInstagram className="me-2" color="white" />
-                <span className="d-none d-md-inline mr-3 me-2">Instagram</span>
-
-                <BsTwitter color="white" />
-                <span className="d-none d-md-inline mr-3 me-2">Twitter</span>
-
-                <BsYoutube className="me-2" color="white" />
-                <span className="d-none d-md-inline mr-3 me-2">Youtube</span>
+          <Row className="">
+            <Col className=" ">
+              <div className="d-flex justify-content-left jutify-content-xl-start mb-2">
+                <div>
+                  <MdFacebook className="me-1" color="white" />
+                  <span className="d-none d-md-inline">Facebook</span>
+                </div>
+                <div>
+                  <FaInstagram className="me-1 mx-3" color="white" />
+                  <span className="d-none d-md-inline mr-3 me-1">
+                    Instagram
+                  </span>
+                </div>
+                <div>
+                  <BsTwitter className="me-1 mx-3" color="white" />
+                  <span className="d-none d-md-inline mr-3 me-1">Twitter</span>
+                </div>
+                <div>
+                  <BsYoutube className="me-1 mx-3" color="white" />
+                  <span className="d-none d-md-inline mr-3 me-1">Youtube</span>
+                </div>
               </div>
-              <div className="d-flex justify-content-center mb-2">
-                <div className="text-center text-xl-left">
-                  <Link to="https://app.marica2030.com.br/login">
+              <div className="mb-2">
+                <div className=" text-xl-left">
+                  <Link to="https://app.marica2030.com.br/login" target="blank">
                     <TextWhite>Área do comerciante</TextWhite>
                   </Link>
                 </div>
               </div>
             </Col>
-            <Col className="d-flex flex-column justify-content-right col-xl-6 mb-4 mb-xl-0">
-              <div className="d-flex flex-column align-items-center flex-md-row col-xl-6">
+            <Col className="d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-center mt-4 mt-xl-0">
+              <div className="d-flex flex-column align-items-center flex-md-row col-lg-6 col-md-6">
                 <div className="mb-3 mb-md-0">
-                  <img src={maricaprotege} alt="marica protege" />
+                  <img src={maricaprotege} alt="marica protege" height="60" />
                 </div>
                 <div className="mx-md-4 mb-3 mb-md-0">
-                  <p className="mb-1">
-                    <Link to="https://www.conhecamarica.com.br/static/media/guia-gastronomico.f9556598.pdf">
+                  <div className="mb-1">
+                    <a
+                      className="mb-1"
+                      href="https://www.conhecamarica.com.br/static/media/guia-gastronomico.f9556598.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <TextWhite>Manual Gastronomia</TextWhite>
+                    </a>
+                  </div>
+                  <div>
+                    <Link
+                      to="https://www.conhecamarica.com.br/static/media/guia-hospedagem.2046547a.pdf"
+                      target="_blank"
+                    >
+                      <TextWhite>Manual Hospedagem</TextWhite>
                     </Link>
-                  </p>
-                  <p>
-                    <Link to="https://www.conhecamarica.com.br/static/media/guia-hospedagem.2046547a.pdf">
-                      <TextWhite>Manual Gastronomia</TextWhite>
-                    </Link>
-                  </p>
+                  </div>
                 </div>
                 <div className="mb-3 mb-md-0">
                   <img src={marica} alt="marica turismo" />
@@ -68,7 +83,7 @@ const Footer: React.FC = () => {
           </Row>
         </Container>
       </BgF>
-    </footer>
+    </Footer1>
   )
 }
 

@@ -223,9 +223,13 @@ const Home: React.FC = () => {
                     description="Conheça mais sobre Maricá"
                   />
                 </div>
-                <div className="d-flex justify-content-center mb-3">
+                <a
+                  href="/sobreacidade"
+                  style={{ textDecoration: 'none' }}
+                  className="d-flex justify-content-center mb-3"
+                >
                   <Btn>Acessar</Btn>
-                </div>
+                </a>
               </Card>
             </Col>
           </Row>

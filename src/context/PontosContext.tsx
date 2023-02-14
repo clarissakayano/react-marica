@@ -24,6 +24,7 @@ interface IContextProps {
   fetchPoints: () => Promise<void>
   fetchPoint: (id: number | string) => Promise<void>
   searchPoints: (search: string) => Promise<void>
+  fetchCategory: (id: number) => Promise<void>
 }
 
 interface IPointsProviderProps {
@@ -97,7 +98,25 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
+  const fetchCategory = useCallback(async (id: number | string) => {
+    console.log('fetchCategory')
+    console.log('ID')
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const { data } = await Api.get(`/pontos/categorias/${id}`)
+      setPoint(data.collection)
+      setCategories(categories)
+    } catch {
+      setError('Erro: não foi possível carregar')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   console.log('point', point)
+  console.log('categorias', fetchCategory)
   console.log('categories', categories)
   console.log('collections', collections)
 
@@ -113,6 +132,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
           error,
           fetchPoints,
           fetchPoint,
+          fetchCategory,
           searchPoints,
         }),
         [
@@ -124,6 +144,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
           error,
           fetchPoints,
           fetchPoint,
+          fetchCategory,
           searchPoints,
         ],
       )}

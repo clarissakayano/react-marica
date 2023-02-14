@@ -59,3 +59,9 @@ export const BgColor = styled.div`
     border: none;
   }
 `
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`

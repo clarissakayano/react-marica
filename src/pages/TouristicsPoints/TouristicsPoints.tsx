@@ -12,9 +12,11 @@ import { usePoints } from 'context/PontosContext'
 import Footer from 'components/Footer/Footer'
 import PointCard from 'components/PointCard/PointCard'
 
+import { strToSlug } from 'helpers'
+
 import useTitle from 'hooks/useTitle'
 
-import { BgColor, CategoriesColor, Inp, Title } from './styles'
+import { BgColor, CategoriesColor, Inp, Title, Wrapper } from './styles'
 
 const TouristicsPoints: React.FC = () => {
   const [search, setSearch] = useState('')
@@ -40,7 +42,7 @@ const TouristicsPoints: React.FC = () => {
   }, [i18n.resolvedLanguage])
 
   return (
-    <>
+    <Wrapper>
       <Header />
       <BgColor>
         <Container className="flex-grow-1">
@@ -90,7 +92,14 @@ const TouristicsPoints: React.FC = () => {
                 <ul key={category.id}>
                   <li className="d-flex ">
                     <CategoriesColor className="me-2">
-                      {category.label}
+                      <Link
+                        className="button button-md"
+                        to={`categorias/${category.id}/${strToSlug(
+                          category.label,
+                        )}`}
+                      >
+                        {category.label}
+                      </Link>
                     </CategoriesColor>
                   </li>
                 </ul>
@@ -109,7 +118,7 @@ const TouristicsPoints: React.FC = () => {
         </Container>
       </BgColor>
       <Footer />
-    </>
+    </Wrapper>
   )
 }
 export default memo(TouristicsPoints)

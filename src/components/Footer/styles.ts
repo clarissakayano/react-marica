@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+export const Footer1 = styled.div`
+  margin-top: auto;
+`
+
 export const BgF = styled.div`
   background-color: #333;
   color: white;
@@ -19,4 +23,14 @@ export const BgF = styled.div`
 `
 export const TextWhite = styled.span`
   color: white;
+  text-decoration: underline;
+  text-decoration-color: white;
+  font-size: 15px;
+  font-family: Roboto, sans-serif;
+`
+export const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 `
