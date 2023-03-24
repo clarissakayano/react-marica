@@ -22,10 +22,10 @@ import { CategoriesColor, Img, Title } from './styles'
 
 const HotelEPousada: React.FC = () => {
   const { fetchHotel, hotel, isLoading, error } = useHotels()
+  const { t, i18n } = useTranslation()
 
   const { id } = useParams()
 
-  const { t, i18n } = useTranslation()
   const setTitle = useTitle()
 
   useEffect(() => {

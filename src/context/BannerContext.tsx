@@ -9,8 +9,6 @@ import {
   useEffect,
 } from 'react'
 
-import { error } from 'console'
-
 import { BannerType } from 'components/types/BannerType'
 
 import Api from 'services/Api'
@@ -22,7 +20,7 @@ interface IContextProps {
   error: string | null
   fetchBanners: () => Promise<void>
   setBanners: Dispatch<SetStateAction<BannerType[]>>
-  setBanner: Dispatch<SetStateAction<BannerType[]>>
+  setBanner: Dispatch<SetStateAction<BannerType | null>>
 }
 
 interface IBannersProviderProps {
@@ -35,7 +33,7 @@ export const BannersProvider: React.FC<IBannersProviderProps> = ({
   children,
 }) => {
   const [banners, setBanners] = useState<BannerType[]>([])
-  const [banner, setBanner] = useState<BannerType[]>([])
+  const [banner, setBanner] = useState<BannerType | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 

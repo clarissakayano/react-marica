@@ -3,18 +3,16 @@ import { memo, useEffect } from 'react'
 import Header from 'Header/Header'
 import { Container } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import { HiOutlineArrowLeft } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 
+import { useAbout } from 'context/SobreContext'
 
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import { AboutBg, BgImg} from './styles'
-import AboutCard from 'components/AboutCard/AboutCard'
-import { useAbout } from 'context/SobreContext'
-import { HiOutlineArrowLeft } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
-import { BgColor } from 'Header/styles'
+import { AboutBg, BgImg } from './styles'
 
 interface IBaseComponentProps {
   children?: React.ReactNode
@@ -35,9 +33,7 @@ const SobreACidade: React.FC<IBaseComponentProps> = () => {
       <Header />
       {loading && (
         <div className="d-flex justify-content-center mt-5 mb-5">
-
-            <p>Carregando informações...</p>
-
+          <p>Carregando informações...</p>
         </div>
       )}
       {!loading && !error && (
@@ -48,14 +44,15 @@ const SobreACidade: React.FC<IBaseComponentProps> = () => {
               <div className="d-flex flex-column py-2 px-5">
                 <div className="d-flex">
                   <Link to="/" className="mt-1 me-2">
-                    <HiOutlineArrowLeft color='black' size={18} />
+                    <HiOutlineArrowLeft color="black" size={18} />
                   </Link>
                   <h1 className="d-flex mb-4">Conheça Maricá</h1>
                 </div>
-                  <div
+                <div
+                  // eslint-disable-next-line react/no-danger, @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
                   dangerouslySetInnerHTML={{ __html: about?.sobre?.content! }}
                 />
-                </div>
+              </div>
             </AboutBg>
           </Container>
         </>

@@ -14,7 +14,6 @@ import GooglePlay from 'assets/googleapp.png'
 import { useEvents } from 'context/EventContext '
 
 import Footer from 'components/Footer/Footer'
-import MapLocation from 'components/MapLocation'
 import TitlePage from 'components/TitlePage'
 
 import useTitle from 'hooks/useTitle'
