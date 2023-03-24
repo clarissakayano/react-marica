@@ -182,7 +182,7 @@ const TouristicPoint: React.FC = () => {
                             size={25}
                             color="#6ebd00"
                           />
-                          key={viajante.label}
+                          {viajante.label}
                         </p>
                       </Col>
                     ))}

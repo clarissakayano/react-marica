@@ -33,7 +33,6 @@ export type ItemRestaurantType = {
   descricao_t: string
   dicas_t: string
   estruturas: {
-    id: string
     icone: string
     label: string
   }[]

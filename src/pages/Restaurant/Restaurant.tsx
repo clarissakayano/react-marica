@@ -122,14 +122,13 @@ const Restaurant: React.FC = () => {
             {Array.isArray(restaurant.redes) && restaurant.redes.length > 0 && (
               <>
                 {restaurant.redes.map((rede) => (
-                  <div className="d-flex mt-3">
+                  <div className="d-flex mt-3" key={rede.nome}>
                     <BsFacebook className="me-2" size={20} color="#6ebd00" />
 
                     <a
                       href={rede.url}
                       target="_blank"
                       className="d-flex text-start me-3 text-decoration-none"
-                      key={rede.nome}
                       rel="noreferrer"
                     >
                       {rede.user}
@@ -140,11 +139,12 @@ const Restaurant: React.FC = () => {
             )}
 
             {restaurant.phones.map((p) => (
-              <p key={p.order}>
+              <p key={p.id}>
                 <FiPhone className="me-2" size={20} color="#6ebd00" />
                 {p.nome} : {p.number}
               </p>
             ))}
+
             {restaurant.horario_funcionamento.length > 0 && (
               <div className="d-flex mt-3 ">
                 <div>
@@ -154,20 +154,18 @@ const Restaurant: React.FC = () => {
                     className="me-2"
                   />
                 </div>
-                <Row>
-                  <Col className="col-4">
-                    {restaurant.horario_funcionamento.map((horario) => (
-                      <p className="fw-bold">{horario.label}</p>
-                    ))}
-                  </Col>
-                  <Col className="col-8">
-                    {restaurant.horario_funcionamento.map((horario) => (
-                      <p>
-                        {horario.horario.abre} às {horario.horario.fecha}
-                      </p>
-                    ))}
-                  </Col>
-                </Row>
+                <Col className="col-4">
+                  {restaurant.horario_funcionamento.map((horario) => (
+                    <p className="fw-bold">{horario.label}</p>
+                  ))}
+                </Col>
+                <Col className="col-8">
+                  {restaurant.horario_funcionamento.map((horario) => (
+                    <p>
+                      {horario.horario.abre} às {horario.horario.fecha}
+                    </p>
+                  ))}
+                </Col>
               </div>
             )}
 
@@ -185,8 +183,8 @@ const Restaurant: React.FC = () => {
 
                 <Row className="row-cols-3">
                   {restaurant.viajantes.map((p) => (
-                    <Col className="d-flex align items-center">
-                      <p key={p.label}>
+                    <Col className="d-flex align items-center" key={p.label}>
+                      <p>
                         <IoIosCheckmarkCircleOutline
                           className="me-2"
                           size={25}
@@ -205,8 +203,8 @@ const Restaurant: React.FC = () => {
 
                 <Row className="row-cols-2 row-cols-md-3">
                   {restaurant.estruturas.map((p) => (
-                    <Col className="d-flex align items-center">
-                      <p key={p.id}>
+                    <Col className="d-flex align items-center" key={p.label}>
+                      <p>
                         <SVG className="me-2" src={p.icone} fill="#6ebd00" />
                         {p.label}
                       </p>
@@ -222,8 +220,8 @@ const Restaurant: React.FC = () => {
 
                   <Row className="row-cols-3">
                     {restaurant.restricoes.map((p) => (
-                      <Col className="d-flex align items-center">
-                        <p className="mb-3" key={p.id}>
+                      <Col className="d-flex align items-center" key={p.id}>
+                        <p className="mb-3">
                           <SVG className="me-2" src={p.icone} fill="#6ebd00" />
                           {p.label}
                         </p>
