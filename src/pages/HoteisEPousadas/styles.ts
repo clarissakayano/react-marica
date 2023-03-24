@@ -15,15 +15,42 @@ export const BgColor = styled.div`
   a:link,
   a:visited {
     text-decoration: none;
-    color: #333333;
+    color: none;
   }
 
   input {
     border-radius: 15px;
     padding: 0px 15px;
   }
+`
+export const Title = styled.h1`
+  font-family: Roboto, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 10px;
+`
 
-  button {
+export const Inp = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid rgb(51, 51, 51);
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  font-size: 18px;
+  color: rgb(51, 51, 51);
+  textarea:focus,
+  input:focus {
+    outline: none;
+  }
+  input {
+    border-radius: 15px;
+    padding: 0px 15px;
+    border-color: transparent;
+  }
+
+  #btnsearch {
     border-radius: 20px;
     background-color: transparent;
     border: none;

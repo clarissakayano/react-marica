@@ -18,3 +18,18 @@ export const CategoriesColor = styled.button`
 export const TextDias = styled.span`
   font-weight: 700;
 `
+export const Container = styled.div``
+export const TextBlack = styled.span`
+  font-weight: 500;
+  color: rgb(51, 51, 51);
+`
+interface ICoverImgProps {
+  capa: string
+}
+export const Img = styled.div<ICoverImgProps>`
+  background-image: ${({ capa }) => `url(${capa})`};
+  width: 100%;
+  height: 350px;
+  background-size: cover;
+  background-position: center center;
+`

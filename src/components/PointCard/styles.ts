@@ -20,11 +20,11 @@ export const Card1 = styled.div`
 `
 
 interface ICoverProps {
-  coverimage: string
+  capa: string
 }
 
 export const Cover = styled(Ratio)<ICoverProps>`
-  background-image: ${({ coverimage }) => `url(${coverimage})`};
+  background-image: ${({ capa }) => `url(${capa})`};
   background-size: cover;
   background-position: center center;
   margin-top: 0px;
@@ -36,9 +36,9 @@ export const Cover = styled(Ratio)<ICoverProps>`
 
 export const CardTitle = styled.h2`
   color: rgb(45 103 127);
-  font-weight 700;
+  font-weight: 700;
   font-size: 18px;
-  font-family: Roboto, sans-serif; ;
+  font-family: Roboto, sans-serif;
   padding-left: 15px;
 `
 

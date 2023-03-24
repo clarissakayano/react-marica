@@ -10,23 +10,31 @@ import { useSpaces } from 'context/SpaceContext'
 
 import Footer from 'components/Footer/Footer'
 import GeralCard from 'components/GeralCard/GeralCard'
+import Mapbutton from 'components/MapButton/Mapbutton'
+import TitlePage from 'components/TitlePage'
 
 import useTitle from 'hooks/useTitle'
 
-import { BgColor, CategoriesColor } from './styles'
+import { BgColor, CategoriesColor, Inp } from './styles'
 
 const Spaces: React.FC = () => {
   const [search, setSearch] = useState('')
-  const { fetchSpaces, spaces, isLoading, error, categories, searchSpaces } =
-    useSpaces()
+  const {
+    fetchSpaces,
+    spaces,
+    isLoading,
+    error,
+    categories,
+    fetchsearchSpaces,
+  } = useSpaces()
   console.log('categories', categories)
 
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
 
   const handleSearch = useCallback(
-    () => searchSpaces(search),
-    [searchSpaces, search],
+    () => fetchsearchSpaces(search),
+    [fetchsearchSpaces, search],
   )
 
   useEffect(() => {
@@ -45,21 +53,31 @@ const Spaces: React.FC = () => {
       <BgColor>
         <Container className="flex-grow-1">
           <Row className="mt-3">
-            <Col>
-              <Link to="/">
-                <h1>Espaços para Eventos</h1>
-              </Link>
+            <Col className="col-md-6">
+              <div>
+                <TitlePage title="Espaços para Eventos" to="/" />
+              </div>
             </Col>
-            <Col>
-              <input
-                type="text"
-                placeholder="Buscar Pontos Turísticos"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Button type="button" onClick={handleSearch}>
-                <BiSearch color="black" />
-              </Button>
+            <Col className="col-md-3 d-flex">
+              <Mapbutton to="/" />
+
+              <div className="flex-grow-1">
+                <Inp>
+                  <input
+                    type="text"
+                    placeholder="Buscar espaços para eventos"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <Button
+                    className="flex-shrink btnsearch"
+                    type="submit"
+                    onClick={handleSearch}
+                  >
+                    <BiSearch color="black" />
+                  </Button>
+                </Inp>
+              </div>
             </Col>
           </Row>
 
@@ -82,7 +100,7 @@ const Spaces: React.FC = () => {
               spaces.map((space) => (
                 <Row key={space.id} className="flex-nowrap flex-md-wrap">
                   <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                    <Link to={`/comercios/${space.id}`}>
+                    <Link to={`/espaco/${space.id}`}>
                       <GeralCard item={space} />
                     </Link>
                   </Col>

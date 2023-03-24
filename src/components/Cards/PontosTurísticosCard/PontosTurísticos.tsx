@@ -1,1 +1,0 @@
-const TuristicoCard: React.FC = () => {}

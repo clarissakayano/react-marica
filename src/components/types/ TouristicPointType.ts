@@ -1,4 +1,4 @@
-import { CategoryType } from './CollectionType'
+import { AddressType, CategoryType } from './CollectionType'
 import { ImageType } from './ImageType'
 
 export type TouristicPointType = {
@@ -7,17 +7,14 @@ export type TouristicPointType = {
   capa: string
   lat: string
   lng: string
+  icone: string
   images: ImageType
   categorias: CategoryType[]
-  enderecos: {
-    id: string
-    lat: string
-    lng: string
-    label: string
-  }[]
+  enderecos: AddressType[]
 }
 
 export type ItemType = {
+  nome: string
   addresses: {
     id: number
     label: string
@@ -54,6 +51,7 @@ export type ItemType = {
     label: string
   }[]
   restricoes: {
+    icone: string
     label: string
   }[]
 }

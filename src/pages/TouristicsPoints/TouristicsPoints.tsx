@@ -3,32 +3,39 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import Header from 'Header/Header'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
 
 import { usePoints } from 'context/PontosContext'
 
+import CategoriesPillsComponents from 'components/CategoriesPillsComponents'
 import Footer from 'components/Footer/Footer'
+import Mapbutton from 'components/MapButton/Mapbutton'
 import PointCard from 'components/PointCard/PointCard'
-
-import { strToSlug } from 'helpers'
+import TitlePage from 'components/TitlePage'
 
 import useTitle from 'hooks/useTitle'
 
-import { BgColor, CategoriesColor, Inp, Title, Wrapper } from './styles'
+import { BgColor, Inp, Wrapper } from './styles'
 
 const TouristicsPoints: React.FC = () => {
   const [search, setSearch] = useState('')
-  const { fetchPoints, points, isLoading, error, categories, searchPoints } =
-    usePoints()
+  const {
+    fetchPoints,
+    points,
+    isLoading,
+    error,
+    categories,
+    fetchSearchPoints,
+    setCategory,
+    fetchCategory,
+  } = usePoints()
 
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
 
   const handleSearch = useCallback(
-    () => searchPoints(search),
-    [searchPoints, search],
+    () => fetchSearchPoints(search),
+    [fetchSearchPoints, search],
   )
 
   useEffect(() => {
@@ -45,36 +52,27 @@ const TouristicsPoints: React.FC = () => {
     <Wrapper>
       <Header />
       <BgColor>
-        <Container className="flex-grow-1">
-          <Row className="mt-3 pt-3 pt-md-4 pb-4">
-            <Col className="col-md-6">
-              <div className="d-flex align-items-center mb-4 mb-md-0">
-                <div className="d-flex">
-                  <Link to="/">
-                    <AiOutlineArrowLeft
-                      size="22"
-                      height="22"
-                      width="22"
-                      className="me-2"
-                    />
-                  </Link>
-                </div>
-                <div>
-                  <Title>Pontos Turísticos</Title>
-                </div>
+        <Container className="flex-grow-1 ">
+          <Row className="mt-2 pt-3 pt-md-4 pb-4 ">
+            <Col className="d-flex col-md-5">
+              <div>
+                <TitlePage title="Pontos Turisticos" to="/" />
               </div>
             </Col>
-            <Col>
-              <div className="flex-grow-1">
+            <Col className="col-md-3 d-flex">
+              <Mapbutton to="/" />
+
+              <div className="flex-grow-1 ">
                 <Inp>
                   <input
+                    className="border-0 w-100"
                     type="text"
-                    placeholder="Buscar Pontos Turísticos"
+                    placeholder="Buscar pontos turísticos"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
                   <Button
-                    className="flex-shrink"
+                    className="flex-shrink btnsearch"
                     type="submit"
                     onClick={handleSearch}
                   >
@@ -84,37 +82,32 @@ const TouristicsPoints: React.FC = () => {
               </div>
             </Col>
           </Row>
+
           <div className="d-flex flex-wrap mb-4 mt-2">
             {isLoading && <p>Loading...</p>}
-            {!isLoading &&
-              !error &&
-              categories.map((category) => (
-                <ul key={category.id}>
-                  <li className="d-flex ">
-                    <CategoriesColor className="me-2">
-                      <Link
-                        className="button button-md"
-                        to={`categorias/${category.id}/${strToSlug(
-                          category.label,
-                        )}`}
-                      >
-                        {category.label}
-                      </Link>
-                    </CategoriesColor>
-                  </li>
-                </ul>
-              ))}
+            {!isLoading && !error && (
+              <CategoriesPillsComponents
+                loading={isLoading}
+                error={error}
+                categories={categories}
+              />
+            )}
           </div>
-          <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-            {!isLoading &&
-              points.map((point) => (
-                <Row key={point.id} className="flex-nowrap flex-md-wrap">
-                  <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                    <PointCard point={point} />
-                  </Col>
-                </Row>
-              ))}
-          </div>
+          <Row>
+            <div className="d-flex flex-wrap mb-4 mt-2 g-3 justify-content-center">
+              {!isLoading &&
+                points.map((point) => (
+                  <Row key={point.id} className="flex-nowrap flex-md-wrap">
+                    <Col className="col-md-2 col-lg-4 mb-3 mb-md-5">
+                      <PointCard point={point} />
+                    </Col>
+                  </Row>
+                ))}
+            </div>
+            {!isLoading && !error && points.length === 0 && (
+              <h2>Nenhum resultado encontrado</h2>
+            )}
+          </Row>
         </Container>
       </BgColor>
       <Footer />

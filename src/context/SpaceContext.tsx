@@ -8,13 +8,17 @@ import {
 
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
-import { ItemType } from 'components/types/ItemType'
+import {
+  ItemSpaceEventsType,
+  SpaceEventsCategoryType,
+  SpaceEventsType,
+} from 'components/types/SpaceEventsType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
-  spaces: CollectionType[]
-  space: ItemType | undefined
+  spaces: SpaceEventsType[]
+  space: ItemSpaceEventsType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
   isLoading: boolean
@@ -22,7 +26,7 @@ interface IContextProps {
   error: string | null
   fetchSpaces: () => Promise<void>
   fetchSpace: (id: number | string) => Promise<void>
-  searchSpaces: (search: string) => Promise<void>
+  fetchsearchSpaces: (search?: string) => Promise<void>
 }
 
 interface ISpaceProviderProps {
@@ -32,8 +36,8 @@ interface ISpaceProviderProps {
 export const ReactContext = createContext<IContextProps>({} as IContextProps)
 
 export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
-  const [spaces, setSpaces] = useState<CollectionType[]>([])
-  const [space, setSpace] = useState<ItemType | undefined>()
+  const [spaces, setSpaces] = useState<SpaceEventsType[]>([])
+  const [space, setSpace] = useState<ItemSpaceEventsType | undefined>()
   const [categories, setCategories] = useState<CategoryType[]>([])
 
   const [collections, setCollections] = useState<CollectionType[]>([])
@@ -58,7 +62,7 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
     }
   }, [])
 
-  const searchSpaces = useCallback(async (search: string) => {
+  const fetchsearchSpaces = useCallback(async (search?: string) => {
     setIsLoading(true)
     setError(null)
 
@@ -67,10 +71,8 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
     }
 
     try {
-      const { data } = await Api.get('/espacos', { params })
+      const { data } = await Api.get('/espacos/busca', { params })
       setSpaces(data.collection)
-      setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -78,7 +80,7 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
     }
   }, [])
 
-  const fetchSpace = useCallback(async (id: number | string) => {
+  const fetchSpace = useCallback(async (id?: number | string) => {
     console.log('fetchSpace')
     console.log('ID')
     setIsLoading(true)
@@ -108,7 +110,7 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
           error,
           fetchSpaces,
           fetchSpace,
-          searchSpaces,
+          fetchsearchSpaces,
         }),
         [
           space,
@@ -119,7 +121,7 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
           error,
           fetchSpaces,
           fetchSpace,
-          searchSpaces,
+          fetchsearchSpaces,
         ],
       )}
     >

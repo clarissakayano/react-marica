@@ -4,21 +4,22 @@ import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
 import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
-import { AiOutlineMail } from 'react-icons/ai'
+import { AiOutlineClockCircle, AiOutlineMail } from 'react-icons/ai'
+import { BsFacebook } from 'react-icons/bs'
 import { FiPhone } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import { RiMapPinLine } from 'react-icons/ri'
 import SVG from 'react-inlinesvg'
 import { useParams } from 'react-router-dom'
+import Slider from 'react-slick'
 
 import { useRestaurants } from 'context/RestaurantesContext'
 
-import ItemCard from 'components/Cards/ItemCard'
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import { CategoriesColor, Title } from './styles'
+import { CategoriesColor, Img, Title } from './styles'
 
 const Restaurant: React.FC = () => {
   const { fetchRestaurant, restaurant, isLoading, error } = useRestaurants()
@@ -37,6 +38,14 @@ const Restaurant: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+  }
+
   return (
     <>
       <Header />
@@ -44,22 +53,35 @@ const Restaurant: React.FC = () => {
       {error && <h2>Não foi possível carregar...</h2>}
       {!isLoading && !error && restaurant && (
         <>
-          <Carousel className="mb-4">
-            {!isLoading &&
-              !error &&
-              Array.isArray(restaurant?.images) &&
-              restaurant?.images.map((image) => (
-                <Carousel.Item className="h-100" key={image.id}>
-                  <img src={image.src} alt="imagem" />
-                </Carousel.Item>
+          {restaurant?.images.length < 4 && (
+            <div className="d-flex justify-content-between">
+              {restaurant?.images.map((banner) => (
+                <Img
+                  key={banner.id}
+                  capa={banner.src}
+                  className="d-block w-100"
+                />
               ))}
-          </Carousel>
+            </div>
+          )}
+          {restaurant?.images.length >= 4 && (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <Slider {...settings}>
+              {restaurant?.images.map((banner) => (
+                <Img
+                  key={banner.id}
+                  capa={banner.src}
+                  className="d-block w-100"
+                />
+              ))}
+            </Slider>
+          )}
 
           <Container>
             <Row className="mb-4">
               <Col className="col-12 col-lg-8">
-                <a href="/restaurantes">
-                  <h2>{restaurant.nome}</h2>
+                <a href="/bares-e-restaurantes">
+                  <Title>{restaurant.nome}</Title>
                 </a>
                 <div className="d-flex flex-wrap mt-3">
                   {!isLoading &&
@@ -97,17 +119,58 @@ const Restaurant: React.FC = () => {
                 </div>
               </div>
             )}
+            {Array.isArray(restaurant.redes) && restaurant.redes.length > 0 && (
+              <>
+                {restaurant.redes.map((rede) => (
+                  <div className="d-flex mt-3">
+                    <BsFacebook className="me-2" size={20} color="#6ebd00" />
+
+                    <a
+                      href={rede.url}
+                      target="_blank"
+                      className="d-flex text-start me-3 text-decoration-none"
+                      key={rede.nome}
+                      rel="noreferrer"
+                    >
+                      {rede.user}
+                    </a>
+                  </div>
+                ))}
+              </>
+            )}
+
             {restaurant.phones.map((p) => (
-              <p key={p.id}>
+              <p key={p.order}>
                 <FiPhone className="me-2" size={20} color="#6ebd00" />
                 {p.nome} : {p.number}
               </p>
             ))}
-            {restaurant.horario_funcionamento.map((p) => (
-              <p className="me-2" key={p.id}>
-                {p.label} {p.horario.abre} às {p.horario.fecha}
-              </p>
-            ))}
+            {restaurant.horario_funcionamento.length > 0 && (
+              <div className="d-flex mt-3 ">
+                <div>
+                  <AiOutlineClockCircle
+                    size={20}
+                    color="#6ebd00"
+                    className="me-2"
+                  />
+                </div>
+                <Row>
+                  <Col className="col-4">
+                    {restaurant.horario_funcionamento.map((horario) => (
+                      <p className="fw-bold">{horario.label}</p>
+                    ))}
+                  </Col>
+                  <Col className="col-8">
+                    {restaurant.horario_funcionamento.map((horario) => (
+                      <p>
+                        {horario.horario.abre} às {horario.horario.fecha}
+                      </p>
+                    ))}
+                  </Col>
+                </Row>
+              </div>
+            )}
+
             {Array.isArray(restaurant.dicas_t) && (
               <div className="mt-4">
                 <Title>Dicas</Title>
@@ -123,7 +186,7 @@ const Restaurant: React.FC = () => {
                 <Row className="row-cols-3">
                   {restaurant.viajantes.map((p) => (
                     <Col className="d-flex align items-center">
-                      <p>
+                      <p key={p.label}>
                         <IoIosCheckmarkCircleOutline
                           className="me-2"
                           size={25}
@@ -143,7 +206,7 @@ const Restaurant: React.FC = () => {
                 <Row className="row-cols-2 row-cols-md-3">
                   {restaurant.estruturas.map((p) => (
                     <Col className="d-flex align items-center">
-                      <p>
+                      <p key={p.id}>
                         <SVG className="me-2" src={p.icone} fill="#6ebd00" />
                         {p.label}
                       </p>
@@ -160,7 +223,7 @@ const Restaurant: React.FC = () => {
                   <Row className="row-cols-3">
                     {restaurant.restricoes.map((p) => (
                       <Col className="d-flex align items-center">
-                        <p className="mb-3">
+                        <p className="mb-3" key={p.id}>
                           <SVG className="me-2" src={p.icone} fill="#6ebd00" />
                           {p.label}
                         </p>

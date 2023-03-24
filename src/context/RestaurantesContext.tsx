@@ -8,15 +8,19 @@ import {
 
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
-import { ItemType } from 'components/types/ItemType'
+import {
+  ItemRestaurantType,
+  RestaurantCategoryType,
+  RestaurantType,
+} from 'components/types/RestaurantType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
-  restaurants: CollectionType[]
-  restaurant: ItemType | undefined
-  categories: CategoryType[]
-  collections: CollectionType[]
+  restaurants: RestaurantType[]
+  restaurant: ItemRestaurantType | undefined
+  categories: RestaurantCategoryType[]
+
   isLoading: boolean
 
   error: string | null
@@ -34,11 +38,10 @@ export const ReactContext = createContext<IContextProps>({} as IContextProps)
 export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
   children,
 }) => {
-  const [restaurants, setRestaurants] = useState<CollectionType[]>([])
-  const [restaurant, setRestaurant] = useState<ItemType | undefined>()
-  const [categories, setCategories] = useState<CategoryType[]>([])
+  const [restaurants, setRestaurants] = useState<RestaurantType[]>([])
+  const [restaurant, setRestaurant] = useState<ItemRestaurantType | undefined>()
+  const [categories, setCategories] = useState<RestaurantCategoryType[]>([])
 
-  const [collections, setCollections] = useState<CollectionType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -52,7 +55,6 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
       console.log('results', data)
       setRestaurants(data.collection)
       setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -69,10 +71,8 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     }
 
     try {
-      const { data } = await Api.get('/restaurantes', { params })
+      const { data } = await Api.get('/restaurantes/busca', { params })
       setRestaurants(data.collection)
-      setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -96,8 +96,6 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     }
   }, [])
 
-  console.log('collections', collections)
-
   return (
     <ReactContext.Provider
       value={useMemo(
@@ -105,7 +103,6 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
           restaurant,
           restaurants,
           categories,
-          collections,
           isLoading,
           error,
           fetchRestaurants,
@@ -116,7 +113,6 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
           restaurant,
           restaurants,
           categories,
-          collections,
           isLoading,
           error,
           fetchRestaurants,

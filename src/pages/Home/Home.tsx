@@ -1,8 +1,7 @@
 import { memo, useEffect } from 'react'
 
 import Header from 'Header/Header'
-import { Buttom } from 'Header/styles'
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { FaRoute, FaUmbrellaBeach } from 'react-icons/fa'
 import { GiMicrophone } from 'react-icons/gi'
@@ -14,13 +13,10 @@ import {
   RiCalendar2Fill,
 } from 'react-icons/ri'
 import { SiHomeassistantcommunitystore } from 'react-icons/si'
-import { Link } from 'react-router-dom'
 
 import appstore from 'assets/appstore.png'
 import googleapp from 'assets/googleapp.png'
 import phone from 'assets/phone.png'
-
-import { useBanners } from 'context/BannerContext'
 
 import BannersH from 'components/BannersH'
 import HomeCards from 'components/Cards/HomeCards'
@@ -33,8 +29,6 @@ import { BgColorFooter, SubTitle, TextFooter, BgColor, Btn } from './styles'
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
-  const { fetchBanners } = useBanners()
-
   useEffect(() => {
     setTitle(t('home.head-title'))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,7 +96,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <a
-                  href="/restaurantes"
+                  href="/bares-e-restaurantes"
                   style={{ textDecoration: 'none' }}
                   className="d-flex justify-content-center mb-3"
                 >
@@ -123,7 +117,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <a
-                  href="/comercios"
+                  href="/comercio-local"
                   style={{ textDecoration: 'none' }}
                   className="d-flex justify-content-center mb-3"
                 >
@@ -165,7 +159,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <a
-                  href="/evento"
+                  href="/eventos"
                   style={{ textDecoration: 'none' }}
                   className="d-flex justify-content-center mb-3"
                 >
@@ -203,9 +197,11 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <a
-                  href="/https://www.feirartemarica.com.br/"
+                  href="https://www.feirartemarica.com.br/"
+                  target="_blank"
                   style={{ textDecoration: 'none' }}
                   className="d-flex justify-content-center mb-3"
+                  rel="noreferrer"
                 >
                   <Btn>Acessar</Btn>
                 </a>

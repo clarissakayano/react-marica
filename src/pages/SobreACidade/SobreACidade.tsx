@@ -9,7 +9,7 @@ import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import { AboutBg, BgImg, BodyBg } from './styles'
+import { AboutBg, BgImg} from './styles'
 import AboutCard from 'components/AboutCard/AboutCard'
 import { useAbout } from 'context/SobreContext'
 import { HiOutlineArrowLeft } from 'react-icons/hi'

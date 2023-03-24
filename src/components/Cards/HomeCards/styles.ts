@@ -10,7 +10,9 @@ export const Description = styled.h2`
   font-size: 12px;
   color: #6c757d;
 
-  @media (min-width: 576px) .d-sm-block {
-    display: block !important;
+  @media (min-width: 576px) {
+    .d-sm-block {
+      display: block !important;
+    }
   }
 `

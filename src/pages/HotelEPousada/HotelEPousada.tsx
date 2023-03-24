@@ -1,29 +1,30 @@
-import { memo, useCallback, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 
 import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
-import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
+import { AiOutlineGlobal, AiOutlineMail } from 'react-icons/ai'
+import { FaRegCheckCircle } from 'react-icons/fa'
 import { FiPhone } from 'react-icons/fi'
-import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
+import { HiArrowLeft } from 'react-icons/hi'
 import { RiMapPinLine } from 'react-icons/ri'
 import SVG from 'react-inlinesvg'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import Slider from 'react-slick'
 
 import { useHotels } from 'context/HotelEPousadaContext'
 
-import ItemCard from 'components/Cards/ItemCard'
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import { CategoriesColor, Title } from './styles'
+import { CategoriesColor, Img, Title } from './styles'
 
 const HotelEPousada: React.FC = () => {
   const { fetchHotel, hotel, isLoading, error } = useHotels()
 
   const { id } = useParams()
-  console.log('idP')
+
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
 
@@ -36,6 +37,14 @@ const HotelEPousada: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+  }
+
   return (
     <>
       <Header />
@@ -43,23 +52,31 @@ const HotelEPousada: React.FC = () => {
       {error && <h2>Não foi possível carregar...</h2>}
       {!isLoading && !error && hotel && (
         <>
-          <Carousel className="mb-4">
-            {!isLoading &&
-              !error &&
-              Array.isArray(hotel?.images) &&
-              hotel?.images.map((image) => (
-                <Carousel.Item className="h-100" key={image.id}>
-                  <img src={image.src} alt="imagem" />
-                </Carousel.Item>
+          {hotel?.images.length >= 4 && (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <Slider {...settings}>
+              {hotel?.images.map((banner) => (
+                <Img
+                  key={banner.id}
+                  capa={banner.src}
+                  className="d-block w-100"
+                />
               ))}
-          </Carousel>
+            </Slider>
+          )}
 
           <Container>
             <Row className="mb-4">
               <Col className="col-12 col-lg-8">
-                <Link to="/hoteis-e-pousadas">
-                  <h2>{hotel.nome}</h2>
-                </Link>
+                <div>
+                  <a href="/hoteis-e-pousadas">
+                    <Title className="mt-5">
+                      <HiArrowLeft color="black" size={22} className="me-2 " />
+                      {hotel?.nome}
+                    </Title>
+                  </a>
+                </div>
+
                 <div className="d-flex flex-wrap mt-3">
                   {!isLoading &&
                     !error &&
@@ -102,40 +119,35 @@ const HotelEPousada: React.FC = () => {
                 {p.nome} : {p.number}
               </p>
             ))}
-            {Array.isArray(hotel.dicas_t) && (
+
+            <div>
+              <p>
+                <AiOutlineMail className="me-2" size={20} color="#6ebd00" />
+                <span>{hotel?.email}</span>
+              </p>
+            </div>
+            <div>
+              <p>
+                <AiOutlineGlobal className="me-2" size={20} color="#6ebd00" />
+                <span>{hotel?.site}</span>
+              </p>
+            </div>
+
+            {Array.isArray(hotel?.dicas_t) && (
               <div className="mt-4">
                 <Title>Dicas</Title>
 
                 <p>{hotel.dicas_t}</p>
               </div>
             )}
-            {Array.isArray(hotel.viajantes) && (
-              <div className="mt-4">
-                <Title>Tipos de Viajantes</Title>
 
-                <Row className="row-cols-3">
-                  {hotel.viajantes.map((p) => (
-                    <Col className="d-flex align items-center">
-                      <p>
-                        <IoIosCheckmarkCircleOutline
-                          className="me-2"
-                          size={25}
-                          color="#6ebd00"
-                        />
-                        {p.label}
-                      </p>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            )}
-            {Array.isArray(hotel.estruturas) && (
+            {Array.isArray(hotel.estruturas) && hotel.restricoes.length > 0 && (
               <div className="mt-4">
                 <Title>Estruturas</Title>
 
                 <Row className="row-cols-2 row-cols-md-3">
                   {hotel.estruturas.map((p) => (
-                    <Col className="d-flex align items-center">
+                    <Col className="d-flex align items-center" key={p.label}>
                       <p>
                         <SVG className="me-2" src={p.icone} fill="#6ebd00" />
                         {p.label}
@@ -151,7 +163,7 @@ const HotelEPousada: React.FC = () => {
 
                 <Row className="row-cols-3">
                   {hotel.restricoes.map((p) => (
-                    <Col className="d-flex align items-center">
+                    <Col className="d-flex align items-center" key={p.label}>
                       <p className="mb-3">
                         <SVG className="me-2" src={p.icone} fill="#6ebd00" />
                         {p.label}
@@ -161,6 +173,23 @@ const HotelEPousada: React.FC = () => {
                 </Row>
               </div>
             )}
+            {Array.isArray(hotel.formas_pagamento) &&
+              hotel.formas_pagamento.length > 0 && (
+                <div className="mt-4">
+                  <Title>Formas de Pagamento</Title>
+
+                  <Row className="row-cols-3">
+                    {hotel?.formas_pagamento.map((p) => (
+                      <Col className="d-flex align items-center" key={p.label}>
+                        <div>
+                          <FaRegCheckCircle className="me-2" fill="#6ebd00" />{' '}
+                        </div>
+                        <p className="mb-3">{p.label}</p>
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              )}
           </Container>
         </>
       )}

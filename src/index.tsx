@@ -7,6 +7,7 @@ import 'services/i18n'
 
 import { BannersProvider } from 'context/BannerContext'
 import { CommercesProvider } from 'context/CommerceContext'
+import { EventsProvider } from 'context/EventContext '
 import { HotelsProvider } from 'context/HotelEPousadaContext'
 import { PointsProvider } from 'context/PontosContext'
 import { RestaurantsProvider } from 'context/RestaurantesContext'
@@ -18,21 +19,23 @@ import App from './App'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense>
-      <SpacesProvider>
-        <AboutProvider>
-          <CommercesProvider>
-            <RestaurantsProvider>
-              <HotelsProvider>
-                <PointsProvider>
-                  <BannersProvider>
-                    <App />
-                  </BannersProvider>
-                </PointsProvider>
-              </HotelsProvider>
-            </RestaurantsProvider>
-          </CommercesProvider>
-        </AboutProvider>
-      </SpacesProvider>
+      <EventsProvider>
+        <SpacesProvider>
+          <AboutProvider>
+            <CommercesProvider>
+              <RestaurantsProvider>
+                <HotelsProvider>
+                  <PointsProvider>
+                    <BannersProvider>
+                      <App />
+                    </BannersProvider>
+                  </PointsProvider>
+                </HotelsProvider>
+              </RestaurantsProvider>
+            </CommercesProvider>
+          </AboutProvider>
+        </SpacesProvider>
+      </EventsProvider>
     </Suspense>
   </React.StrictMode>,
 )

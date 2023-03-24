@@ -54,5 +54,4 @@ export const Btn = styled.button`
   background-color: transparent;
   border-radius: 15px;
   padding: 0px 20px;
-  @media (min-width: 992px);
 `

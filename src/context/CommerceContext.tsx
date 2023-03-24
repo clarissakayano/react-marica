@@ -8,12 +8,12 @@ import {
 
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
-import { ItemType } from 'components/types/ItemType'
+import { CommerceType, ItemType } from 'components/types/CommerceType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
-  commerces: CollectionType[]
+  commerces: CommerceType[]
   commerce: ItemType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
@@ -34,7 +34,7 @@ export const ReactContext = createContext<IContextProps>({} as IContextProps)
 export const CommercesProvider: React.FC<ICommerceProviderProps> = ({
   children,
 }) => {
-  const [commerces, setCommerces] = useState<CollectionType[]>([])
+  const [commerces, setCommerces] = useState<CommerceType[]>([])
   const [commerce, setCommerce] = useState<ItemType | undefined>()
   const [categories, setCategories] = useState<CategoryType[]>([])
 
@@ -69,11 +69,9 @@ export const CommercesProvider: React.FC<ICommerceProviderProps> = ({
     }
 
     try {
-      const { data } = await Api.get('/comercios', { params })
+      const { data } = await Api.get('/comercios/busca', { params })
       setCommerces(data.collection)
       console.log('setCommerces', setCommerces)
-      setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {

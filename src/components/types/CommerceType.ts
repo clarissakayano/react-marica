@@ -1,33 +1,31 @@
-import { CategoryType } from './CollectionType'
-import { ImageType } from './ImageType'
+export type CommerceCategoryType = {
+  id: number
+  label: string
+  count: number
+}
 
-export type HotelType = {
+export type CommerceType = {
   id: number
   nome: string
   capa: string
-  lat: string
-  lng: string
-  images: ImageType
-  categorias: CategoryType[]
+  lat: number
+  lng: number
+  categorias: CommerceCategoryType[]
   enderecos: {
-    id: string
-    lat: string
-    lng: string
+    id: number
+    lat: number
+    lng: number
     label: string
   }[]
 }
 
 export type ItemType = {
+  email: string
   addresses: {
     id: number
     label: string
     lat: number
-    lgn: number
-  }[]
-  phones: {
-    id: number
-    nome: string
-    number: number
+    lng: number
   }[]
   categorias: {
     id: number
@@ -39,42 +37,44 @@ export type ItemType = {
     icone: string
     label: string
   }[]
-  formas_pagamento: []
+  formas_pagamento: {
+    icone: string
+    label: string
+  }[]
   gratuito: number
   horario_funcionamento: {
     label: string
+    is24: boolean
     horario: {
       abre: string
       fecha: string
     }
   }[]
   id: number
-  label: string
   images: {
     id: number
     src: string
-    legenda: {
-      pt_BR: string
-    }
+  }[]
+  nome: string
+  panorama: []
+  phones: {
+    id: number
+    nome: string
+    number: string
+    order: number
+    whatsapp: boolean
   }[]
   redes: {
-    nome: string
     icone: string
+    nome: string
     url: string
     user: string
-    site: null
   }[]
   restricoes: {
+    icone: string
     label: string
   }[]
-  faixa_preco: number
-  cozinhas: {
+  viajantes: {
     label: string
-    refeicoes: {
-      label: string
-    }
-  }
-  refeicoes: {
-    label: string
-  }
+  }[]
 }

@@ -11,6 +11,7 @@ export const BgColor = styled.div`
     font-weight: 400;
   }
 `
+
 export const Buttom = styled.button`
   color: blue;
 `

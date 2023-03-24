@@ -15,3 +15,14 @@ export const CategoriesColor = styled.button`
   font-family: Roboto, sans-serif;
   border-color: transparent;
 `
+
+interface ICoverImgProps {
+  capa: string
+}
+export const Img = styled.div<ICoverImgProps>`
+  background-image: ${({ capa }) => `url(${capa})`};
+  width: 100%;
+  height: 350px;
+  background-size: cover;
+  background-position: center center;
+`

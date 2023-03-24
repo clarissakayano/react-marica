@@ -8,12 +8,12 @@ import {
 
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
-import { HotelType, ItemType } from 'components/types/ItemType'
+import { HotelType, ItemType } from 'components/types/HotelType'
 
 import Api from 'services/Api'
 
 interface IContextProps {
-  hotels: CollectionType[]
+  hotels: HotelType[]
   hotel: ItemType | undefined
   categories: CategoryType[]
   collections: CollectionType[]
@@ -22,7 +22,7 @@ interface IContextProps {
   error: string | null
   fetchHotels: () => Promise<void>
   fetchHotel: (id: number | string) => Promise<void>
-  searchHotels: (search: string) => Promise<void>
+  searchHotels: (search?: string) => Promise<void>
 }
 
 interface IHotelProviderProps {
@@ -50,7 +50,6 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
       console.log('results', data)
       setHotels(data.collection)
       setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -58,7 +57,7 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
     }
   }, [])
 
-  const searchHotels = useCallback(async (search: string) => {
+  const searchHotels = useCallback(async (search?: string) => {
     setIsLoading(true)
     setError(null)
 
@@ -67,11 +66,8 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
     }
 
     try {
-      const { data } = await Api.get('/hoteis-e-pousadas', { params })
+      const { data } = await Api.get('/hoteis-e-pousadas/busca', { params })
       setHotels(data.collection)
-      console.log('setHotels', setHotels)
-      setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -80,8 +76,6 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
   }, [])
 
   const fetchHotel = useCallback(async (id: number | string) => {
-    console.log('fetchHotel')
-    console.log('ID')
     setIsLoading(true)
     setError(null)
 
@@ -94,8 +88,6 @@ export const HotelsProvider: React.FC<IHotelProviderProps> = ({ children }) => {
       setIsLoading(false)
     }
   }, [])
-
-  console.log('collections', collections)
 
   return (
     <ReactContext.Provider

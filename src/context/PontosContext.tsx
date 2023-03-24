@@ -2,12 +2,14 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react'
 
-import { ItemType, TouristicPointType } from 'components/types/ TouristicPoint'
+import {
+  ItemType,
+  TouristicPointType,
+} from 'components/types/ TouristicPointType'
 import { CategoryType } from 'components/types/CategoryType'
 import { CollectionType } from 'components/types/CollectionType'
 
@@ -21,10 +23,11 @@ interface IContextProps {
   isLoading: boolean
 
   error: string | null
+  setCategory: (category: CategoryType) => void
   fetchPoints: () => Promise<void>
   fetchPoint: (id: number | string) => Promise<void>
-  searchPoints: (search: string) => Promise<void>
   fetchCategory: (id: number) => Promise<void>
+  fetchSearchPoints: (search?: string) => Promise<void>
 }
 
 interface IPointsProviderProps {
@@ -39,6 +42,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
   const [points, setPoints] = useState<TouristicPointType[]>([])
   const [point, setPoint] = useState<ItemType | undefined>()
   const [categories, setCategories] = useState<CategoryType[]>([])
+  const [category, setCategory] = useState<CategoryType | null>(null)
 
   const [collections, setCollections] = useState<CollectionType[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -62,7 +66,7 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  const searchPoints = useCallback(async (search: string) => {
+  const fetchSearchPoints = useCallback(async (search?: string) => {
     setIsLoading(true)
     setError(null)
 
@@ -73,8 +77,6 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     try {
       const { data } = await Api.get('/pontos/busca', { params })
       setPoints(data.collection)
-      setCategories(data.categorias)
-      setCollections(data.collection)
     } catch {
       setError('Erro: não foi possível carregar')
     } finally {
@@ -98,22 +100,25 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
     }
   }, [])
 
-  const fetchCategory = useCallback(async (id: number | string) => {
-    console.log('fetchCategory')
-    console.log('ID')
-    setIsLoading(true)
-    setError(null)
+  const fetchCategory = useCallback(
+    async (id?: number | string) => {
+      console.log('fetchCategory')
+      console.log('ID')
+      setIsLoading(true)
+      setError(null)
 
-    try {
-      const { data } = await Api.get(`/pontos/categorias/${id}`)
-      setPoint(data.collection)
-      setCategories(categories)
-    } catch {
-      setError('Erro: não foi possível carregar')
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
+      try {
+        const { data } = await Api.get(`/pontos/categorias/${id}`)
+        setPoints(data.collection)
+        setCategories(categories)
+      } catch {
+        setError('Erro: não foi possível carregar')
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [categories],
+  )
 
   console.log('point', point)
   console.log('categorias', fetchCategory)
@@ -130,10 +135,11 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
           collections,
           isLoading,
           error,
+          setCategory,
           fetchPoints,
           fetchPoint,
           fetchCategory,
-          searchPoints,
+          fetchSearchPoints,
         }),
         [
           point,
@@ -142,10 +148,11 @@ export const PointsProvider: React.FC<IPointsProviderProps> = ({
           collections,
           isLoading,
           error,
+          setCategory,
           fetchPoints,
           fetchPoint,
           fetchCategory,
-          searchPoints,
+          fetchSearchPoints,
         ],
       )}
     >

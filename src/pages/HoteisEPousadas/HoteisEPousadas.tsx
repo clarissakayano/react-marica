@@ -9,12 +9,14 @@ import { Link } from 'react-router-dom'
 import { useHotels } from 'context/HotelEPousadaContext'
 
 import Footer from 'components/Footer/Footer'
+import { Wrapper } from 'components/Footer/styles'
 import GeralCard from 'components/GeralCard/GeralCard'
-import PointCard from 'components/PointCard/PointCard'
+import Mapbutton from 'components/MapButton/Mapbutton'
+import TitlePage from 'components/TitlePage'
 
 import useTitle from 'hooks/useTitle'
 
-import { BgColor, CategoriesColor } from './styles'
+import { BgColor, CategoriesColor, Inp } from './styles'
 
 const HoteisEPousadas: React.FC = () => {
   const [search, setSearch] = useState('')
@@ -42,27 +44,47 @@ const HoteisEPousadas: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
   console.log('page')
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+  }
+
   return (
-    <>
+    <Wrapper>
       <Header />
       <BgColor>
         <Container className="flex-grow-1">
           <Row className="mt-3">
-            <Col>
-              <Link to="/">
-                <h1>Hoteis e Pousadas</h1>
-              </Link>
+            <Col className="col-md-6">
+              <div>
+                <TitlePage title="Hotéis e Pousadas" to="/" />
+              </div>
             </Col>
-            <Col>
-              <input
-                type="text"
-                placeholder="Buscar Pontos Turísticos"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Button type="button" onClick={handleSearch}>
-                <BiSearch color="black" />
-              </Button>
+            <Col className="col-md-3 d-flex">
+              <Mapbutton to="/" />
+
+              <div className="flex-grow-1">
+                <Inp>
+                  <input
+                    type="text"
+                    placeholder="Buscar hotéis e pousadas"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <Button
+                    className="flex-shrink "
+                    id="btnsearch"
+                    type="submit"
+                    onClick={handleSearch}
+                  >
+                    <BiSearch color="black" />
+                  </Button>
+                </Inp>
+              </div>
             </Col>
           </Row>
 
@@ -95,7 +117,7 @@ const HoteisEPousadas: React.FC = () => {
         </Container>
       </BgColor>
       <Footer />
-    </>
+    </Wrapper>
   )
 }
 export default memo(HoteisEPousadas)

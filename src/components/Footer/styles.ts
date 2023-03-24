@@ -21,7 +21,7 @@ export const BgF = styled.div`
     color: white;
   }
 `
-export const TextWhite = styled.span`
+export const TextWhite = styled.p`
   color: white;
   text-decoration: underline;
   text-decoration-color: white;
