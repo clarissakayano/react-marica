@@ -15,7 +15,6 @@ export const BgColor = styled.div`
   a:link,
   a:visited {
     text-decoration: none;
-    color: #333333;
   }
 
   input {

@@ -17,28 +17,25 @@ const CategoryPillsComponents: React.FC<ICategoryPillsProps> = ({
   error,
   categories,
 }) => {
+  const pathArray = window.location.pathname.split('/')
+  const categoryName = pathArray[1]
+
   return (
     <ListStyle className="d-flex flex-nowrap flex-md-wrap g-3">
       {!loading &&
         !error &&
-        categories.map(
-          (category: {
-            id: number
-            label: string
-            count?: number | undefined
-          }) => (
-            <li key={category.id}>
-              <LinkStyled
-                className="button button-md"
-                to={`/pontos-turisticos/categorias/${category.id}/${strToSlug(
-                  category.label,
-                )}`}
-              >
-                {category.label}
-              </LinkStyled>
-            </li>
-          ),
-        )}
+        categories.map((category) => (
+          <li key={category.id}>
+            <LinkStyled
+              className="button button-md"
+              to={`/${categoryName}/categorias/${category.id}/${strToSlug(
+                category.label,
+              )}`}
+            >
+              {category.label}
+            </LinkStyled>
+          </li>
+        ))}
     </ListStyle>
   )
 }

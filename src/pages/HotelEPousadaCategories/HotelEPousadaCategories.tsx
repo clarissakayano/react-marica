@@ -1,35 +1,26 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 import Header from 'Header/Header'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-import { usePoints } from 'context/PontosContext'
+import { useHotels } from 'context/HotelEPousadaContext'
 
 import Footer from 'components/Footer/Footer'
+import GeralCard from 'components/GeralCard/GeralCard'
 import Mapbutton from 'components/MapButton/Mapbutton'
-import PointCard from 'components/PointCard/PointCard'
-import TitlePage from 'components/TitlePage'
-import { AddressType } from 'components/types/CollectionType'
 
 import useTitle from 'hooks/useTitle'
 
 import { BgColor, Inp, Title, Wrapper } from './styles'
 
-const TouristicsPointsCategories: React.FC = () => {
+const HotelEpousadaCategories: React.FC = () => {
   const [search, setSearch] = useState('')
-  const {
-    fetchPoints,
-    points,
-    isLoading,
-    error,
-    categories,
-    fetchSearchPoints,
-    fetchCategory,
-  } = usePoints()
+  const { hotels, isLoading, error, categories, fetchCategory, searchHotels } =
+    useHotels()
 
   const { id } = useParams()
 
@@ -41,14 +32,12 @@ const TouristicsPointsCategories: React.FC = () => {
   }, [fetchCategory, id])
 
   const handleSearch = useCallback(
-    () => fetchSearchPoints(search),
-    [fetchSearchPoints, search],
+    () => searchHotels(search),
+    [searchHotels, search],
   )
 
-  const pointNomalized = useMemo(
-    () => categories.find((point) => point.id === Number(id)),
-    [categories, id],
-  )
+  const pointNomalized = categories.find((point) => point.id === Number(id))
+
   useEffect(() => {
     setTitle('PontosTuristicos')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,8 +52,8 @@ const TouristicsPointsCategories: React.FC = () => {
             <Row className="mt-2 pt-3 pt-md-4 pb-4">
               <Col className="col-md-6">
                 <div>
-                  <a href="/pontos">
-                    <span>Pontos Turísticos</span>
+                  <a href="/hoteis-e-pousadas">
+                    <span>Hotéis e Pousadas</span>
 
                     <Title>
                       {' '}
@@ -100,20 +89,26 @@ const TouristicsPointsCategories: React.FC = () => {
                     </Button>
                   </Inp>
                 </div>
+                {!isLoading && !error && hotels.length === 0 && (
+                  <h2>Nenhum resultado encontrado</h2>
+                )}
               </Col>
 
               <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                {!isLoading &&
-                  !error &&
-                  points.map((point) => (
-                    <Row key={point.id} className="flex-nowrap flex-md-wrap">
-                      <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                        <PointCard point={point} />
-                      </Col>
-                    </Row>
-                  ))}
+                <div className="d-flex flex-wrap mb-4 mt-2 g-3">
+                  {!isLoading &&
+                    hotels.map((hotel) => (
+                      <Row key={hotel.id} className="flex-nowrap flex-md-wrap">
+                        <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
+                          <Link to={`/hoteis-e-pousadas/${hotel.id}`}>
+                            <GeralCard item={hotel} />
+                          </Link>
+                        </Col>
+                      </Row>
+                    ))}
+                </div>
               </div>
-              {!isLoading && !error && points.length === 0 && (
+              {!isLoading && !error && hotels.length === 0 && (
                 <div className="d-flex justify-content-center">
                   <h2>Nenhum resultado encontrado</h2>
                 </div>
@@ -126,4 +121,4 @@ const TouristicsPointsCategories: React.FC = () => {
     </Wrapper>
   )
 }
-export default memo(TouristicsPointsCategories)
+export default memo(HotelEpousadaCategories)

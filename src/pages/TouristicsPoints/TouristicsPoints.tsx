@@ -51,65 +51,69 @@ const TouristicsPoints: React.FC = () => {
   return (
     <Wrapper>
       <Header />
-      <BgColor>
-        <Container className="flex-grow-1 ">
-          <Row className="mt-2 pt-3 pt-md-4 pb-4 ">
-            <Col className="d-flex col-md-5">
-              <div>
-                <TitlePage title="Pontos Turisticos" to="/" />
-              </div>
-            </Col>
-            <Col className="col-md-3 d-flex">
-              <Mapbutton to="/" />
+      {!isLoading && !error && (
+        <BgColor className="d-flex flex-column py-5">
+          <Container>
+            <Row className="mt-2 pt-3 pt-md-4 pb-4 ">
+              <Col className="d-flex col-md-5">
+                <div>
+                  <TitlePage title="Pontos Turisticos" to="/" />
+                </div>
+              </Col>
+              <Col className="col-md-3 d-flex">
+                <Mapbutton to="/" />
 
-              <div className="flex-grow-1 ">
-                <Inp>
-                  <input
-                    className="border-0 w-100"
-                    type="text"
-                    placeholder="Buscar pontos turísticos"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                  <Button
-                    className="flex-shrink btnsearch"
-                    type="submit"
-                    onClick={handleSearch}
-                  >
-                    <BiSearch color="black" />
-                  </Button>
-                </Inp>
-              </div>
-            </Col>
-          </Row>
+                <div className="flex-grow-1 ">
+                  <Inp>
+                    <input
+                      className="border-0 w-100"
+                      type="text"
+                      placeholder="Buscar pontos turísticos"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <Button
+                      className="flex-shrink btnsearch"
+                      type="submit"
+                      onClick={handleSearch}
+                    >
+                      <BiSearch color="black" />
+                    </Button>
+                  </Inp>
+                </div>
+              </Col>
+            </Row>
 
-          <div className="d-flex flex-wrap mb-4 mt-2">
-            {isLoading && <p>Loading...</p>}
-            {!isLoading && !error && (
-              <CategoriesPillsComponents
-                loading={isLoading}
-                error={error}
-                categories={categories}
-              />
-            )}
-          </div>
-          <Row>
-            <div className="d-flex flex-wrap mb-4 mt-2 g-3 justify-content-center">
-              {!isLoading &&
-                points.map((point) => (
-                  <Row key={point.id} className="flex-nowrap flex-md-wrap">
-                    <Col className="col-md-2 col-lg-4 mb-3 mb-md-5">
-                      <PointCard point={point} />
-                    </Col>
-                  </Row>
-                ))}
+            <div className="d-flex flex-wrap mb-4 mt-2">
+              {isLoading && <p>Loading...</p>}
+              {!isLoading && !error && (
+                <CategoriesPillsComponents
+                  loading={isLoading}
+                  error={error}
+                  categories={categories}
+                />
+              )}
             </div>
-            {!isLoading && !error && points.length === 0 && (
-              <h2>Nenhum resultado encontrado</h2>
-            )}
-          </Row>
-        </Container>
-      </BgColor>
+            <Row>
+              <div className="d-flex flex-wrap mb-4 mt-2 g-3 justify-content-center">
+                {!isLoading &&
+                  points.map((point) => (
+                    <Row key={point.id} className="flex-nowrap flex-md-wrap">
+                      <Col className="col-md-2 col-lg-4 mb-3 mb-md-5">
+                        <PointCard point={point} />
+                      </Col>
+                    </Row>
+                  ))}
+              </div>
+              {!isLoading && !error && points.length === 0 && (
+                <div className="d-flex justify-content-center">
+                  <h2>Nenhum resultado encontrado</h2>
+                </div>
+              )}
+            </Row>
+          </Container>
+        </BgColor>
+      )}
       <Footer />
     </Wrapper>
   )

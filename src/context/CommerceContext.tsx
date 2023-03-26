@@ -22,6 +22,7 @@ interface IContextProps {
   error: string | null
   fetchCommerces: () => Promise<void>
   fetchCommerce: (id: number | string) => Promise<void>
+  fetchCategory: (id?: number | string) => Promise<void>
   searchCommerces: (search: string) => Promise<void>
 }
 
@@ -95,6 +96,22 @@ export const CommercesProvider: React.FC<ICommerceProviderProps> = ({
     }
   }, [])
 
+  const fetchCategory = useCallback(async (id?: number | string) => {
+    console.log('fetchCategory')
+    console.log('ID')
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const { data } = await Api.get(`/comercios/categorias/${id}`)
+      setCommerces(data.collection)
+    } catch {
+      setError('Erro: não foi possível carregar')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   console.log('collections', collections)
 
   return (
@@ -109,6 +126,7 @@ export const CommercesProvider: React.FC<ICommerceProviderProps> = ({
           error,
           fetchCommerces,
           fetchCommerce,
+          fetchCategory,
           searchCommerces,
         }),
         [
@@ -120,6 +138,7 @@ export const CommercesProvider: React.FC<ICommerceProviderProps> = ({
           error,
           fetchCommerces,
           fetchCommerce,
+          fetchCategory,
           searchCommerces,
         ],
       )}

@@ -18,7 +18,7 @@ body{
 }
 
 a:link {
-    color: black;
+    color: white;
     text-decoration: none;
 
 }

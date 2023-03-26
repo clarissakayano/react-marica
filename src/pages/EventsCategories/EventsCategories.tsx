@@ -1,35 +1,34 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 import Header from 'Header/Header'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-import { usePoints } from 'context/PontosContext'
+import { useEvents } from 'context/EventContext '
+import { useRestaurants } from 'context/RestaurantesContext'
+import { useSpaces } from 'context/SpaceContext'
 
 import Footer from 'components/Footer/Footer'
+import GeralCard from 'components/GeralCard/GeralCard'
 import Mapbutton from 'components/MapButton/Mapbutton'
-import PointCard from 'components/PointCard/PointCard'
-import TitlePage from 'components/TitlePage'
-import { AddressType } from 'components/types/CollectionType'
 
 import useTitle from 'hooks/useTitle'
 
 import { BgColor, Inp, Title, Wrapper } from './styles'
 
-const TouristicsPointsCategories: React.FC = () => {
+const EventsCategories: React.FC = () => {
   const [search, setSearch] = useState('')
   const {
-    fetchPoints,
-    points,
+    events,
     isLoading,
     error,
     categories,
-    fetchSearchPoints,
-    fetchCategory,
-  } = usePoints()
+    fetchEventsCategory,
+    fetchSearchEvents,
+  } = useEvents()
 
   const { id } = useParams()
 
@@ -37,18 +36,16 @@ const TouristicsPointsCategories: React.FC = () => {
   const setTitle = useTitle()
 
   useEffect(() => {
-    if (id) fetchCategory(Number(id))
-  }, [fetchCategory, id])
+    if (id) fetchEventsCategory(Number(id))
+  }, [fetchEventsCategory, id])
 
   const handleSearch = useCallback(
-    () => fetchSearchPoints(search),
-    [fetchSearchPoints, search],
+    () => fetchSearchEvents(search),
+    [fetchSearchEvents, search],
   )
 
-  const pointNomalized = useMemo(
-    () => categories.find((point) => point.id === Number(id)),
-    [categories, id],
-  )
+  const titleNomalized = categories.find((event) => event.id === Number(id))
+
   useEffect(() => {
     setTitle('PontosTuristicos')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,8 +60,8 @@ const TouristicsPointsCategories: React.FC = () => {
             <Row className="mt-2 pt-3 pt-md-4 pb-4">
               <Col className="col-md-6">
                 <div>
-                  <a href="/pontos">
-                    <span>Pontos Turísticos</span>
+                  <a href="/eventos">
+                    <span>Eventos</span>
 
                     <Title>
                       {' '}
@@ -75,7 +72,7 @@ const TouristicsPointsCategories: React.FC = () => {
                         color="black"
                         className="me-1"
                       />
-                      {pointNomalized?.label}
+                      {titleNomalized?.label}
                     </Title>
                   </a>
                 </div>
@@ -87,7 +84,7 @@ const TouristicsPointsCategories: React.FC = () => {
                   <Inp>
                     <input
                       type="text"
-                      placeholder="Buscar Pontos Turísticos"
+                      placeholder="Buscar eventos"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                     />
@@ -103,17 +100,20 @@ const TouristicsPointsCategories: React.FC = () => {
               </Col>
 
               <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                {!isLoading &&
-                  !error &&
-                  points.map((point) => (
-                    <Row key={point.id} className="flex-nowrap flex-md-wrap">
-                      <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                        <PointCard point={point} />
-                      </Col>
-                    </Row>
-                  ))}
+                <div className="d-flex flex-wrap mb-4 mt-2 g-3">
+                  {!isLoading &&
+                    events.map((event) => (
+                      <Row key={event.id} className="flex-nowrap flex-md-wrap">
+                        <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
+                          <Link to={`/espacos/${event.id}`}>
+                            <GeralCard item={event} />
+                          </Link>
+                        </Col>
+                      </Row>
+                    ))}
+                </div>
               </div>
-              {!isLoading && !error && points.length === 0 && (
+              {!isLoading && !error && events.length === 0 && (
                 <div className="d-flex justify-content-center">
                   <h2>Nenhum resultado encontrado</h2>
                 </div>
@@ -126,4 +126,4 @@ const TouristicsPointsCategories: React.FC = () => {
     </Wrapper>
   )
 }
-export default memo(TouristicsPointsCategories)
+export default memo(EventsCategories)

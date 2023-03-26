@@ -67,6 +67,7 @@ export const MenuContainer = styled.section<IMenuContainerProps>`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    color: white;
     border-bottom: 1px solid #2222;
     border-bottom-width: 2px;
     border-bottom-style: solid;
@@ -77,10 +78,12 @@ export const MenuContainer = styled.section<IMenuContainerProps>`
     display: block;
     list-style-type: disc;
     margin-block-start: 1em;
+    color: white;
   }
 `
 export const NavMenu = styled.span`
   margin-left: 10px;
+  color: white;
 `
 
 export const MenuOverlay = styled.div<IMenuProps>`

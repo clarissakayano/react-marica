@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 import { useEvents } from 'context/EventContext '
 
+import CategoriesPillsComponents from 'components/CategoriesPillsComponents'
 import Footer from 'components/Footer/Footer'
 import GeralCard from 'components/GeralCard/GeralCard'
 import Mapbutton from 'components/MapButton/Mapbutton'
@@ -62,7 +63,7 @@ const Events: React.FC = () => {
                 <Inp>
                   <input
                     type="text"
-                    placeholder="Buscar espaços para eventos"
+                    placeholder="Buscar eventos"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
@@ -80,17 +81,13 @@ const Events: React.FC = () => {
 
           <div className="d-flex flex-wrap mb-4 mt-2">
             {isLoading && <p>Loading...</p>}
-            {!isLoading &&
-              !error &&
-              categories.map((category) => (
-                <ul key={category.id}>
-                  <li className="d-flex flex-nowrap overflow-sm-scroll">
-                    <CategoriesColor className="me-3">
-                      {category.label}
-                    </CategoriesColor>
-                  </li>
-                </ul>
-              ))}
+            {!isLoading && !error && (
+              <CategoriesPillsComponents
+                loading={isLoading}
+                error={error}
+                categories={categories}
+              />
+            )}
           </div>
           <div className="d-flex flex-wrap mb-4 mt-2 g-3">
             {!isLoading &&

@@ -2,6 +2,7 @@ import { memo, useEffect } from 'react'
 
 import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import { BsCheckCircle } from 'react-icons/bs'
 import { FaRegMoneyBillAlt } from 'react-icons/fa'
 import { HiOutlineLocationMarker, HiOutlinePhone } from 'react-icons/hi'
@@ -32,11 +33,12 @@ const Event: React.FC = () => {
   const setTitle = useTitle()
   const { event, isLoading, error, fetchEvent } = useEvents()
   const { id } = useParams()
+  const { t, i18n } = useTranslation()
 
   useEffect(() => {
-    setTitle('Evento | Conheça Maricá | Guia Turistico')
+    if (event?.nome) setTitle(t(`${event?.nome} | Eventos`))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [i18n.resolvedLanguage, event?.nome])
 
   useEffect(() => {
     if (id) fetchEvent(id)
@@ -78,6 +80,7 @@ const Event: React.FC = () => {
                         </CategoryStyled>
                       ))}
                   </div>
+
                   <div className="mt-3">
                     <p className="fs-5">{event.descricao_t}</p>
                   </div>

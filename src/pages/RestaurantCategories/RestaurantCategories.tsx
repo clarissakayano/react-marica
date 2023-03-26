@@ -1,35 +1,33 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 import Header from 'Header/Header'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-import { usePoints } from 'context/PontosContext'
+import { useHotels } from 'context/HotelEPousadaContext'
+import { useRestaurants } from 'context/RestaurantesContext'
 
 import Footer from 'components/Footer/Footer'
+import GeralCard from 'components/GeralCard/GeralCard'
 import Mapbutton from 'components/MapButton/Mapbutton'
-import PointCard from 'components/PointCard/PointCard'
-import TitlePage from 'components/TitlePage'
-import { AddressType } from 'components/types/CollectionType'
 
 import useTitle from 'hooks/useTitle'
 
 import { BgColor, Inp, Title, Wrapper } from './styles'
 
-const TouristicsPointsCategories: React.FC = () => {
+const RestaurantCategories: React.FC = () => {
   const [search, setSearch] = useState('')
   const {
-    fetchPoints,
-    points,
+    restaurants,
     isLoading,
     error,
     categories,
-    fetchSearchPoints,
     fetchCategory,
-  } = usePoints()
+    searchRestaurants,
+  } = useRestaurants()
 
   const { id } = useParams()
 
@@ -41,14 +39,14 @@ const TouristicsPointsCategories: React.FC = () => {
   }, [fetchCategory, id])
 
   const handleSearch = useCallback(
-    () => fetchSearchPoints(search),
-    [fetchSearchPoints, search],
+    () => searchRestaurants(search),
+    [searchRestaurants, search],
   )
 
-  const pointNomalized = useMemo(
-    () => categories.find((point) => point.id === Number(id)),
-    [categories, id],
+  const restaurantNomalized = categories.find(
+    (restaurant) => restaurant.id === Number(id),
   )
+
   useEffect(() => {
     setTitle('PontosTuristicos')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,8 +61,8 @@ const TouristicsPointsCategories: React.FC = () => {
             <Row className="mt-2 pt-3 pt-md-4 pb-4">
               <Col className="col-md-6">
                 <div>
-                  <a href="/pontos">
-                    <span>Pontos Turísticos</span>
+                  <a href="/bares-e-restaurantes">
+                    <span>Bares e Restaurantes</span>
 
                     <Title>
                       {' '}
@@ -75,7 +73,7 @@ const TouristicsPointsCategories: React.FC = () => {
                         color="black"
                         className="me-1"
                       />
-                      {pointNomalized?.label}
+                      {restaurantNomalized?.label}
                     </Title>
                   </a>
                 </div>
@@ -87,7 +85,7 @@ const TouristicsPointsCategories: React.FC = () => {
                   <Inp>
                     <input
                       type="text"
-                      placeholder="Buscar Pontos Turísticos"
+                      placeholder="Buscar bares e restaurantes"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                     />
@@ -104,16 +102,21 @@ const TouristicsPointsCategories: React.FC = () => {
 
               <div className="d-flex flex-wrap mb-4 mt-2 g-3">
                 {!isLoading &&
-                  !error &&
-                  points.map((point) => (
-                    <Row key={point.id} className="flex-nowrap flex-md-wrap">
+                  restaurants.map((restaurant) => (
+                    <Row
+                      key={restaurant.id}
+                      className="flex-nowrap flex-md-wrap"
+                    >
                       <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                        <PointCard point={point} />
+                        <Link to={`/bares-e-restaurantes/${restaurant.id}`}>
+                          <GeralCard item={restaurant} />
+                        </Link>
                       </Col>
                     </Row>
                   ))}
               </div>
-              {!isLoading && !error && points.length === 0 && (
+
+              {!isLoading && !error && restaurants.length === 0 && (
                 <div className="d-flex justify-content-center">
                   <h2>Nenhum resultado encontrado</h2>
                 </div>
@@ -126,4 +129,4 @@ const TouristicsPointsCategories: React.FC = () => {
     </Wrapper>
   )
 }
-export default memo(TouristicsPointsCategories)
+export default memo(RestaurantCategories)

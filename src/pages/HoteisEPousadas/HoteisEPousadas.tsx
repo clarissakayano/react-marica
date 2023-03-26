@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 
 import { useHotels } from 'context/HotelEPousadaContext'
 
+import CategoriesPillsComponents from 'components/CategoriesPillsComponents'
 import Footer from 'components/Footer/Footer'
 import { Wrapper } from 'components/Footer/styles'
 import GeralCard from 'components/GeralCard/GeralCard'
@@ -16,14 +17,12 @@ import TitlePage from 'components/TitlePage'
 
 import useTitle from 'hooks/useTitle'
 
-import { BgColor, CategoriesColor, Inp } from './styles'
+import { BgColor, Inp } from './styles'
 
 const HoteisEPousadas: React.FC = () => {
   const [search, setSearch] = useState('')
   const { fetchHotels, hotels, isLoading, error, categories, searchHotels } =
     useHotels()
-
-  console.log('useHotels', useHotels)
 
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
@@ -90,17 +89,13 @@ const HoteisEPousadas: React.FC = () => {
 
           <div className="d-flex flex-wrap mb-4 mt-2">
             {isLoading && <p>Loading...</p>}
-            {!isLoading &&
-              !error &&
-              categories.map((category) => (
-                <ul key={category.id}>
-                  <li className="d-flex flex-nowrap overflow-sm-scroll">
-                    <CategoriesColor className="me-3">
-                      {category.label}
-                    </CategoriesColor>
-                  </li>
-                </ul>
-              ))}
+            {!isLoading && !error && (
+              <CategoriesPillsComponents
+                loading={isLoading}
+                error={error}
+                categories={categories}
+              />
+            )}
           </div>
           <div className="d-flex flex-wrap mb-4 mt-2 g-3">
             {!isLoading &&
@@ -114,6 +109,11 @@ const HoteisEPousadas: React.FC = () => {
                 </Row>
               ))}
           </div>
+          {!isLoading && !error && hotels.length === 0 && (
+            <div className="d-flex justify-content-center">
+              <h2>Nenhum resultado encontrado</h2>
+            </div>
+          )}
         </Container>
       </BgColor>
       <Footer />

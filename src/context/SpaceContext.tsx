@@ -26,6 +26,7 @@ interface IContextProps {
   error: string | null
   fetchSpaces: () => Promise<void>
   fetchSpace: (id: number | string) => Promise<void>
+  fetchCategory: (id?: number | string) => Promise<void>
   fetchsearchSpaces: (search?: string) => Promise<void>
 }
 
@@ -96,6 +97,22 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
     }
   }, [])
 
+  const fetchCategory = useCallback(async (id?: number | string) => {
+    console.log('fetchCategory')
+    console.log('ID')
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const { data } = await Api.get(`/espacos/categorias/${id}`)
+      setSpaces(data.collection)
+    } catch {
+      setError('Erro: não foi possível carregar')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   console.log('collections', collections)
 
   return (
@@ -110,6 +127,7 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
           error,
           fetchSpaces,
           fetchSpace,
+          fetchCategory,
           fetchsearchSpaces,
         }),
         [
@@ -121,6 +139,7 @@ export const SpacesProvider: React.FC<ISpaceProviderProps> = ({ children }) => {
           error,
           fetchSpaces,
           fetchSpace,
+          fetchCategory,
           fetchsearchSpaces,
         ],
       )}

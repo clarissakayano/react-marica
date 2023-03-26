@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 
 import { useRestaurants } from 'context/RestaurantesContext'
 
+import CategoriesPillsComponents from 'components/CategoriesPillsComponents'
 import Footer from 'components/Footer/Footer'
 import GeralCard from 'components/GeralCard/GeralCard'
 import Mapbutton from 'components/MapButton/Mapbutton'
@@ -99,20 +100,13 @@ const Restaurantes: React.FC = () => {
 
           <div className="d-flex flex-wrap mb-4 mt-2">
             {isLoading && <p>Loading...</p>}
-            {!isLoading &&
-              !error &&
-              categories.map((category) => (
-                <ul key={category.id}>
-                  <Link
-                    className="button button-md"
-                    to={`/${category}/categorias/${category.id}/${strToSlug(
-                      category.label,
-                    )}`}
-                  >
-                    {category.label}
-                  </Link>
-                </ul>
-              ))}
+            {!isLoading && !error && (
+              <CategoriesPillsComponents
+                loading={isLoading}
+                error={error}
+                categories={categories}
+              />
+            )}
           </div>
           <div className="d-flex flex-wrap mb-4 mt-2 g-3">
             {!isLoading &&
@@ -126,6 +120,11 @@ const Restaurantes: React.FC = () => {
                 </Row>
               ))}
           </div>
+          {!isLoading && !error && restaurants.length === 0 && (
+            <div className="d-flex justify-content-center">
+              <h2>Nenhum resultado encontrado</h2>
+            </div>
+          )}
         </Container>
       </BgColor>
       <Footer />

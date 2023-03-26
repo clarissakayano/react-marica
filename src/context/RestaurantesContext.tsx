@@ -26,6 +26,7 @@ interface IContextProps {
   error: string | null
   fetchRestaurants: () => Promise<void>
   fetchRestaurant: (id: number | string) => Promise<void>
+  fetchCategory: (id?: number | string) => Promise<void>
   searchRestaurants: (search: string) => Promise<void>
 }
 
@@ -96,6 +97,22 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
     }
   }, [])
 
+  const fetchCategory = useCallback(async (id?: number | string) => {
+    console.log('fetchCategory')
+    console.log('ID')
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const { data } = await Api.get(`/restaurantes/categorias/${id}`)
+      setRestaurants(data.collection)
+    } catch {
+      setError('Erro: não foi possível carregar')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   return (
     <ReactContext.Provider
       value={useMemo(
@@ -107,6 +124,7 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
           error,
           fetchRestaurants,
           fetchRestaurant,
+          fetchCategory,
           searchRestaurants,
         }),
         [
@@ -117,6 +135,7 @@ export const RestaurantsProvider: React.FC<IRestaurantProviderProps> = ({
           error,
           fetchRestaurants,
           fetchRestaurant,
+          fetchCategory,
           searchRestaurants,
         ],
       )}
