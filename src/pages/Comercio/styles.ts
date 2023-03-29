@@ -18,7 +18,9 @@ export const CategoriesColor = styled.button`
 export const TextDias = styled.span`
   font-weight: 700;
 `
-export const Container = styled.div``
+export const Subtitle = styled.span`
+  font-family: Roboto, sans-serif;
+`
 export const TextBlack = styled.span`
   font-weight: 500;
   color: rgb(51, 51, 51);

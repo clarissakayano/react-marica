@@ -48,61 +48,68 @@ const Events: React.FC = () => {
   return (
     <>
       <Header />
-      <BgColor>
-        <Container className="flex-grow-1">
-          <Row className="mt-3">
-            <Col className="col-md-6">
-              <div>
-                <TitlePage title="Eventos" to="/" />
-              </div>
-            </Col>
-            <Col className="col-md-3 d-flex">
-              <Mapbutton to="/" />
+      {!isLoading && !error && (
+        <BgColor>
+          <Container className="flex-grow-1">
+            <Row className="mt-3">
+              <Col className="col-md-6">
+                <div>
+                  <TitlePage title="Eventos" to="/" />
+                </div>
+              </Col>
+              <Col className="col-md-6 d-flex">
+                <Mapbutton to="/" />
 
-              <div className="flex-grow-1">
-                <Inp>
-                  <input
-                    type="text"
-                    placeholder="Buscar eventos"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                  <Button
-                    className="flex-shrink btnsearch"
-                    type="submit"
-                    onClick={handleSearch}
-                  >
-                    <BiSearch color="black" />
-                  </Button>
-                </Inp>
-              </div>
-            </Col>
-          </Row>
+                <div className="flex-grow-1">
+                  <Inp>
+                    <input
+                      type="text"
+                      placeholder="Buscar eventos"
+                      className="border-0 mx-3 py-2 w-100"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <Button
+                      className="flex-shrink btnsearch"
+                      type="submit"
+                      onClick={handleSearch}
+                    >
+                      <BiSearch color="black" />
+                    </Button>
+                  </Inp>
+                </div>
+              </Col>
+            </Row>
 
-          <div className="d-flex flex-wrap mb-4 mt-2">
-            {isLoading && <p>Loading...</p>}
-            {!isLoading && !error && (
-              <CategoriesPillsComponents
-                loading={isLoading}
-                error={error}
-                categories={categories}
-              />
-            )}
-          </div>
-          <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-            {!isLoading &&
-              events.map((event) => (
-                <Row key={event.id} className="flex-nowrap flex-md-wrap">
-                  <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                    <Link to={`/eventos/${event.id}`}>
-                      <GeralCard item={event} />
-                    </Link>
-                  </Col>
+            <div className="d-flex flex-wrap mb-4 mt-2">
+              {isLoading && <p>Loading...</p>}
+              {!isLoading && !error && (
+                <CategoriesPillsComponents
+                  loading={isLoading}
+                  error={error}
+                  categories={categories}
+                />
+              )}
+            </div>
+            {!isLoading && (
+              <div className="pd">
+                <Row className="justify-content-start row-cols-1 row-cols-md-2 row-cols-lg-3">
+                  {events.map((event) => (
+                    <Col className="d-flex mb-3 mb-md-5 px-1" key={event.id}>
+                      <GeralCard item={event} pagelink="eventos" />
+                    </Col>
+                  ))}
                 </Row>
-              ))}
-          </div>
-        </Container>
-      </BgColor>
+              </div>
+            )}
+            {!isLoading && !error && events.length === 0 && (
+              <div className="d-flex justify-content-center">
+                <h2>Nenhum resultado encontrado</h2>
+              </div>
+            )}
+          </Container>
+        </BgColor>
+      )}
       <Footer />
     </>
   )

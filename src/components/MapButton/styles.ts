@@ -13,6 +13,7 @@ export const MapBtn = styled(Button)`
   padding: 0px 20px;
   height: 40px;
   display: flex;
+  font-family: Roboto, sans-serif;
 
   &:hover,
   a:hover {

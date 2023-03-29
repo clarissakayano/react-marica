@@ -22,7 +22,7 @@ export const BgColor = styled.div`
     padding: 0px 15px;
   }
 
-  button {
+  .btnsearch {
     border-radius: 20px;
     background-color: transparent;
     border: none;

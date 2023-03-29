@@ -52,23 +52,23 @@ const TouristicsPoints: React.FC = () => {
     <Wrapper>
       <Header />
       {!isLoading && !error && (
-        <BgColor className="d-flex flex-column py-5">
-          <Container>
-            <Row className="mt-2 pt-3 pt-md-4 pb-4 ">
-              <Col className="d-flex col-md-5">
+        <BgColor className="d-flex flex-column">
+          <Container className="flex-grow-1">
+            <Row className=" pt-3 pt-md-4 pb-4 ">
+              <Col className="d-flex col-md-6">
                 <div>
                   <TitlePage title="Pontos Turisticos" to="/" />
                 </div>
               </Col>
-              <Col className="col-md-3 d-flex">
+              <Col className="col-md-6 d-flex">
                 <Mapbutton to="/" />
 
                 <div className="flex-grow-1 ">
                   <Inp>
                     <input
-                      className="border-0 w-100"
                       type="text"
                       placeholder="Buscar pontos turísticos"
+                      className="border-0 mx-3 py-2 w-100"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                     />
@@ -81,6 +81,9 @@ const TouristicsPoints: React.FC = () => {
                     </Button>
                   </Inp>
                 </div>
+                {!isLoading && !error && points.length === 0 && (
+                  <h2>Nenhum resultado encontrado</h2>
+                )}
               </Col>
             </Row>
 
@@ -94,23 +97,23 @@ const TouristicsPoints: React.FC = () => {
                 />
               )}
             </div>
-            <Row>
-              <div className="d-flex flex-wrap mb-4 mt-2 g-3 justify-content-center">
-                {!isLoading &&
-                  points.map((point) => (
-                    <Row key={point.id} className="flex-nowrap flex-md-wrap">
-                      <Col className="col-md-2 col-lg-4 mb-3 mb-md-5">
-                        <PointCard point={point} />
-                      </Col>
-                    </Row>
+
+            {!isLoading && (
+              <div className="pd">
+                <Row className="justify-content-center row-cols-1 row-cols-md-2 row-cols-lg-3">
+                  {points.map((point) => (
+                    <Col className="d-flex mb-3 mb-md-5 px-1" key={point.id}>
+                      <PointCard point={point} />
+                    </Col>
                   ))}
+                </Row>
               </div>
-              {!isLoading && !error && points.length === 0 && (
-                <div className="d-flex justify-content-center">
-                  <h2>Nenhum resultado encontrado</h2>
-                </div>
-              )}
-            </Row>
+            )}
+            {!isLoading && !error && points.length === 0 && (
+              <div className="d-flex justify-content-center">
+                <h2>Nenhum resultado encontrado</h2>
+              </div>
+            )}
           </Container>
         </BgColor>
       )}

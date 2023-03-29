@@ -92,21 +92,22 @@ const Spaces: React.FC = () => {
               />
             )}
           </div>
-          <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-            {!isLoading &&
-              spaces.map((space) => (
-                <Row key={space.id} className="flex-nowrap flex-md-wrap">
-                  <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                    <Link to={`/espaco/${space.id}`}>
-                      <GeralCard item={space} />
-                    </Link>
+          {!isLoading && (
+            <div className="pd">
+              <Row className="justify-content-center row-cols-1 row-cols-md-2 row-cols-lg-3">
+                {spaces.map((space) => (
+                  <Col className="d-flex mb-3 mb-md-5 px-1" key={space.id}>
+                    <GeralCard item={space} pagelink="espaco" />
                   </Col>
-                </Row>
-              ))}
-          </div>
-          <div className="d-flex justify-content-center">
-            <h2>Nenhum resultado encontrado</h2>
-          </div>
+                ))}
+              </Row>
+            </div>
+          )}
+          {!isLoading && !error && spaces.length === 0 && (
+            <div className="d-flex justify-content-center">
+              <h2>Nenhum resultado encontrado</h2>
+            </div>
+          )}
         </Container>
       </BgColor>
       <Footer />

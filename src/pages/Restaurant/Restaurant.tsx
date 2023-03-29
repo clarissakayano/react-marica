@@ -4,7 +4,11 @@ import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
 import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
-import { AiOutlineClockCircle, AiOutlineMail } from 'react-icons/ai'
+import {
+  AiOutlineArrowLeft,
+  AiOutlineClockCircle,
+  AiOutlineMail,
+} from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import { FiPhone } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
@@ -15,6 +19,7 @@ import Slider from 'react-slick'
 
 import { useRestaurants } from 'context/RestaurantesContext'
 
+import CategoriesPillsComponents from 'components/CategoriesPillsComponents'
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
@@ -22,7 +27,8 @@ import useTitle from 'hooks/useTitle'
 import { CategoriesColor, Img, Title } from './styles'
 
 const Restaurant: React.FC = () => {
-  const { fetchRestaurant, restaurant, isLoading, error } = useRestaurants()
+  const { fetchRestaurant, restaurant, isLoading, error, categories } =
+    useRestaurants()
 
   const { id } = useParams()
   console.log('idP')
@@ -78,22 +84,31 @@ const Restaurant: React.FC = () => {
           )}
 
           <Container>
-            <Row className="mb-4">
+            <Row className="mb-4 mt-3">
               <Col className="col-12 col-lg-8">
+                <p className="fs-sm fw-light mx-4 mt-3">Bares e Restaurante</p>
                 <a href="/bares-e-restaurantes">
-                  <Title>{restaurant.nome}</Title>
+                  <Title className="fw-bold">
+                    {' '}
+                    <AiOutlineArrowLeft
+                      size="22"
+                      height="22"
+                      width="22"
+                      color="black"
+                      className="me-1"
+                    />
+                    {restaurant.nome}
+                  </Title>
                 </a>
-                <div className="d-flex flex-wrap mt-3">
-                  {!isLoading &&
-                    !error &&
-                    Array.isArray(restaurant?.categorias) &&
-                    restaurant.categorias.map((category) => (
-                      <div key={category.id}>
-                        <CategoriesColor className="me-3">
-                          {category.label}
-                        </CategoriesColor>
-                      </div>
-                    ))}
+                <div className="d-flex flex-wrap mb-4 mt-2">
+                  {isLoading && <p>Loading...</p>}
+                  {!isLoading && !error && (
+                    <CategoriesPillsComponents
+                      loading={isLoading}
+                      error={error}
+                      categories={categories}
+                    />
+                  )}
                 </div>
               </Col>
             </Row>
@@ -154,12 +169,12 @@ const Restaurant: React.FC = () => {
                     className="me-2"
                   />
                 </div>
-                <Col className="col-4">
+                <Col className="col-3">
                   {restaurant.horario_funcionamento.map((horario) => (
                     <p className="fw-bold">{horario.label}</p>
                   ))}
                 </Col>
-                <Col className="col-8">
+                <Col className="col-6">
                   {restaurant.horario_funcionamento.map((horario) => (
                     <p>
                       {horario.horario.abre} às {horario.horario.fecha}

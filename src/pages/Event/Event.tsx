@@ -14,6 +14,7 @@ import GooglePlay from 'assets/googleapp.png'
 
 import { useEvents } from 'context/EventContext '
 
+import CategoriesPillsComponents from 'components/CategoriesPillsComponents'
 import Footer from 'components/Footer/Footer'
 import TitlePage from 'components/TitlePage'
 
@@ -31,7 +32,7 @@ import {
 
 const Event: React.FC = () => {
   const setTitle = useTitle()
-  const { event, isLoading, error, fetchEvent } = useEvents()
+  const { event, isLoading, error, fetchEvent, categories } = useEvents()
   const { id } = useParams()
   const { t, i18n } = useTranslation()
 
@@ -66,19 +67,19 @@ const Event: React.FC = () => {
             )}
 
             <Container>
-              <Row className="mb-5">
+              <Row className="mb-5 mt-3">
                 <Col className="col-12 col-lg-8">
                   <SubTitle>Eventos</SubTitle>
                   <TitlePage title={event.nome} to="/eventos" />
-                  <div className="d-flex flex-wrap mt-3">
-                    {!isLoading &&
-                      !error &&
-                      Array.isArray(event.categorias) &&
-                      event.categorias.map((category) => (
-                        <CategoryStyled className="me-3" key={category.id}>
-                          <p>{category.label}</p>
-                        </CategoryStyled>
-                      ))}
+                  <div className="d-flex flex-wrap mb-4 mt-2">
+                    {isLoading && <p>Loading...</p>}
+                    {!isLoading && !error && (
+                      <CategoriesPillsComponents
+                        loading={isLoading}
+                        error={error}
+                        categories={categories}
+                      />
+                    )}
                   </div>
 
                   <div className="mt-3">

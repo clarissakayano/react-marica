@@ -78,12 +78,13 @@ const RestaurantCategories: React.FC = () => {
                   </a>
                 </div>
               </Col>
-              <Col className="col-md-3 d-flex">
+              <Col className="col-md-6 d-flex">
                 <Mapbutton to="/" />
 
                 <div className="flex-grow-1">
                   <Inp>
                     <input
+                      className="border-0 mx-3 py-2 w-100"
                       type="text"
                       placeholder="Buscar bares e restaurantes"
                       value={search}
@@ -100,20 +101,24 @@ const RestaurantCategories: React.FC = () => {
                 </div>
               </Col>
 
-              <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                {!isLoading &&
-                  restaurants.map((restaurant) => (
-                    <Row
-                      key={restaurant.id}
-                      className="flex-nowrap flex-md-wrap"
-                    >
-                      <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                        <Link to={`/bares-e-restaurantes/${restaurant.id}`}>
-                          <GeralCard item={restaurant} />
-                        </Link>
-                      </Col>
+              <div className="d-flex flex-wrap mb-4 mt-2">
+                {!isLoading && (
+                  <div className="pd">
+                    <Row className="justify-content-start row-cols-1 row-cols-md-2 row-cols-lg-3">
+                      {restaurants.map((restaurant) => (
+                        <Col
+                          className="d-flex mb-3 mb-md-5"
+                          key={restaurant.id}
+                        >
+                          <GeralCard
+                            item={restaurant}
+                            pagelink="bares-e-restaurantes"
+                          />
+                        </Col>
+                      ))}
                     </Row>
-                  ))}
+                  </div>
+                )}
               </div>
 
               {!isLoading && !error && restaurants.length === 0 && (

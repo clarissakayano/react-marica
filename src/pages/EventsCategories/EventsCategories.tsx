@@ -77,7 +77,7 @@ const EventsCategories: React.FC = () => {
                   </a>
                 </div>
               </Col>
-              <Col className="col-md-3 d-flex">
+              <Col className="col-md-6 d-flex">
                 <Mapbutton to="/" />
 
                 <div className="flex-grow-1">
@@ -99,20 +99,17 @@ const EventsCategories: React.FC = () => {
                 </div>
               </Col>
 
-              <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                  {!isLoading &&
-                    events.map((event) => (
-                      <Row key={event.id} className="flex-nowrap flex-md-wrap">
-                        <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                          <Link to={`/espacos/${event.id}`}>
-                            <GeralCard item={event} />
-                          </Link>
-                        </Col>
-                      </Row>
+              {!isLoading && (
+                <div className="pd">
+                  <Row className="justify-content-start row-cols-1 row-cols-md-2 row-cols-lg-3">
+                    {events.map((event) => (
+                      <Col className="d-flex mb-3 mb-md-5 px-1" key={event.id}>
+                        <GeralCard item={event} pagelink="eventos" />
+                      </Col>
                     ))}
+                  </Row>
                 </div>
-              </div>
+              )}
               {!isLoading && !error && events.length === 0 && (
                 <div className="d-flex justify-content-center">
                   <h2>Nenhum resultado encontrado</h2>

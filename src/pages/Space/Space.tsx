@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect } from 'react'
 import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { AiOutlineClockCircle } from 'react-icons/ai'
+import { AiOutlineCheckCircle, AiOutlineClockCircle } from 'react-icons/ai'
 import { FaRegMoneyBillAlt } from 'react-icons/fa'
 import { FiPhone } from 'react-icons/fi'
 import { HiArrowLeft } from 'react-icons/hi'
@@ -35,7 +35,7 @@ const Space: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
   useEffect(() => {
-    setTitle('Pontos-Turisticos')
+    setTitle('Espaço para Eventos')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
 
@@ -79,28 +79,31 @@ const Space: React.FC = () => {
             )}
 
             <Container>
-              <Row className="mb-4">
+              <Row className="mb-4 mt-4">
                 <Col className="col-12 col-lg-8">
                   <div>
-                    <div>
-                      <a href="/espacos">
-                        <Title className="mt-5">
-                          <HiArrowLeft
-                            color="black"
-                            size={22}
-                            className="me-2 "
-                          />
-                          {space?.nome}
-                        </Title>
-                      </a>
-                    </div>
+                    <span className="fs-sm fw-light mx-4">
+                      Espaço para Eventos
+                    </span>
+
+                    <a href="/espacos">
+                      <Title className="mb-3">
+                        <HiArrowLeft
+                          color="black"
+                          size={22}
+                          className="me-2 "
+                        />
+                        {space?.nome}
+                      </Title>
+                    </a>
+
                     <div className="d-flex flex-wrap mt-3">
                       {!isLoading &&
                         !error &&
                         Array.isArray(space?.categorias) &&
                         space.categorias.map((category) => (
                           <div key={category.id}>
-                            <CategoriesColor className="me-3">
+                            <CategoriesColor className="me-3 mt-2">
                               {category.label}
                             </CategoriesColor>
                           </div>
@@ -114,17 +117,17 @@ const Space: React.FC = () => {
               </div>
               {Array.isArray(space.addresses) && (
                 <div>
-                  <Title>Sobre</Title>
+                  <Title className="mt-3">Sobre</Title>
                   <div>
                     {space.addresses.map((p) => (
-                      <p key={p.id}>
+                      <span key={p.id}>
                         <RiMapPinLine
                           className="me-2"
                           size={20}
                           color="#6ebd00"
                         />
                         {p.label}
-                      </p>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -148,25 +151,6 @@ const Space: React.FC = () => {
                   </span>
                 </div>
               ))}{' '}
-              <div className="">
-                <AiOutlineClockCircle
-                  className="me-2"
-                  size={20}
-                  color="#6ebd00"
-                />
-              </div>
-              {space.horario_funcionamento.map((p) => (
-                <div className="d-flex mb-3">
-                  <div>
-                    <span style={{ fontWeight: 700 }} key={p.id}>
-                      {p.label}
-                    </span>
-                    <span>
-                      {p.horario.abre} às {p.horario.fecha}
-                    </span>
-                  </div>
-                </div>
-              ))}
               {Array.isArray(space.dicas_t) && (
                 <div className="mt-4">
                   <Title>Dicas</Title>
@@ -190,6 +174,28 @@ const Space: React.FC = () => {
                   </Row>
                 </div>
               )}
+              {Array.isArray(space.formas_pagamento) &&
+                space.formas_pagamento.length > 0 && (
+                  <div className="mt-4 mb-3">
+                    <Title>Formas de Pagamento</Title>
+                    <Row className="row-cols-3">
+                      {space.formas_pagamento.map((p) => (
+                        <Col className="d-flex me-3 col-12 col-md-3">
+                          <p className="mb-3">
+                            <SVG
+                              className="me-2"
+                              src={p.icone}
+                              fill="#6ebd00"
+                              height="20px"
+                              width="20px"
+                            />
+                            {p.label}
+                          </p>
+                        </Col>
+                      ))}
+                    </Row>
+                  </div>
+                )}
             </Container>
           </>
         )}

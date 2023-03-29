@@ -69,14 +69,15 @@ const HotelEpousadaCategories: React.FC = () => {
                   </a>
                 </div>
               </Col>
-              <Col className="col-md-3 d-flex">
+              <Col className="d-flex col-md-6">
                 <Mapbutton to="/" />
 
                 <div className="flex-grow-1">
                   <Inp>
                     <input
+                      className="border-0 mx-3 py-2 w-100"
                       type="text"
-                      placeholder="Buscar Pontos Turísticos"
+                      placeholder="Buscar hotéis e pousadas"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                     />
@@ -93,27 +94,23 @@ const HotelEpousadaCategories: React.FC = () => {
                   <h2>Nenhum resultado encontrado</h2>
                 )}
               </Col>
-
-              <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-                  {!isLoading &&
-                    hotels.map((hotel) => (
-                      <Row key={hotel.id} className="flex-nowrap flex-md-wrap">
-                        <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                          <Link to={`/hoteis-e-pousadas/${hotel.id}`}>
-                            <GeralCard item={hotel} />
-                          </Link>
-                        </Col>
-                      </Row>
-                    ))}
-                </div>
-              </div>
-              {!isLoading && !error && hotels.length === 0 && (
-                <div className="d-flex justify-content-center">
-                  <h2>Nenhum resultado encontrado</h2>
-                </div>
-              )}
             </Row>
+            {!isLoading && (
+              <div className="pd">
+                <Row className="justify-content-start row-cols-1 row-cols-md-2 row-cols-lg-3">
+                  {hotels.map((hotel) => (
+                    <Col className="d-flex mb-3 mb-md-5 px-1" key={hotel.id}>
+                      <GeralCard item={hotel} pagelink="hoteis-e-pousadas" />
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            )}
+            {!isLoading && !error && hotels.length === 0 && (
+              <div className="d-flex justify-content-center">
+                <h2>Nenhum resultado encontrado</h2>
+              </div>
+            )}
           </Container>
         </BgColor>
       )}

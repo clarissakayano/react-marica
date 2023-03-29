@@ -50,7 +50,7 @@ export const Inp = styled.div`
     border-color: transparent;
   }
 
-  #btnsearch {
+  .btnsearch {
     border-radius: 20px;
     background-color: transparent;
     border: none;

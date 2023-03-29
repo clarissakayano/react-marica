@@ -54,15 +54,15 @@ const Comercios: React.FC = () => {
   return (
     <>
       <Header />
-      <BgColor>
+      <BgColor className="d-flex flex-column">
         <Container className="flex-grow-1">
-          <Row className="mt-3 pt-3 pt-md-4 pb-4">
-            <Col className="col-md-6">
+          <Row className="mt-3 pt-3 pt-md-4 pt-md-4 pb-4">
+            <Col className="d-flex col-md-6">
               <div>
                 <TitlePage title="Comércio Local" to="/" />
               </div>
             </Col>
-            <Col className="col-md-3 d-flex">
+            <Col className="col-md-6 d-flex">
               <Mapbutton to="/" />
 
               <div className="flex-grow-1">
@@ -70,6 +70,7 @@ const Comercios: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Buscar comércio local"
+                    className="border-0 mx-3 py-2 w-100"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
@@ -94,18 +95,17 @@ const Comercios: React.FC = () => {
                 />
               )}
             </div>
-            <div className="d-flex flex-wrap mb-4 mt-2 g-3">
-              {!isLoading &&
-                commerces.map((commerce) => (
-                  <Row key={commerce.id} className="flex-nowrap flex-md-wrap">
-                    <Col className="col-md-6 col-lg-4 mb-3 mb-md-5">
-                      <Link to={`/comercio-local/${commerce.id}`}>
-                        <GeralCard item={commerce} />
-                      </Link>
+            {!isLoading && (
+              <div className="pd">
+                <Row className="justify-content-start row-cols-1 row-cols-md-2 row-cols-lg-3">
+                  {commerces.map((commerce) => (
+                    <Col className="d-flex mb-3 mb-md-5" key={commerce.id}>
+                      <GeralCard item={commerce} pagelink="comercio-local" />
                     </Col>
-                  </Row>
-                ))}
-            </div>
+                  ))}
+                </Row>
+              </div>
+            )}
             {!isLoading && !error && commerces.length === 0 && (
               <div className="d-flex justify-content-center">
                 <h2>Nenhum resultado encontrado</h2>

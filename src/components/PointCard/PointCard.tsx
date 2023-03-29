@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { TouristicPointType } from 'components/types/ TouristicPointType'
 import { CollectionType } from 'components/types/CollectionType'
+import { HotelType } from 'components/types/HotelType'
 import { SpaceEventsType } from 'components/types/SpaceEventsType'
 
 import { Card1, CardText, CardTitle, CategoryText, Cover } from './styles'
@@ -12,14 +13,14 @@ import { Card1, CardText, CardTitle, CategoryText, Cover } from './styles'
 // <Link style={{ textDecoration: 'none' }} to={`item/${item.id}`} />
 
 interface ITouristicPointTypeProps {
-  point: TouristicPointType | SpaceEventsType
+  point: TouristicPointType | SpaceEventsType | HotelType
   children?: React.ReactNode
   endPoint?: string
 }
 const PointCard: React.FC<ITouristicPointTypeProps> = ({ point }) => (
-  <Card1 className="d-flex flex-column h-100" style={{ width: '18rem' }}>
+  <Card1 className="d-flex flex-column w-100">
     <Link to={`/pontos/${point.id}`}>
-      <Cover className="mb-2  img-fluid" aspectRatio="1x1" capa={point.capa}>
+      <Cover className="mb-2 img-fluid" aspectRatio="1x1" capa={point.capa}>
         <div />
       </Cover>
     </Link>

@@ -80,22 +80,6 @@ export const Categories = styled.div`
   overflow-x: scroll;
 `
 
-export const InputBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  border: 1px solid rgb(51, 51, 51);
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  font-size: 18px;
-  color: rgb(51, 51, 51);
-  textarea:focus,
-  input:focus {
-    outline: none;
-  }
-`
-
 export const Category = styled.button`
   color: white;
   border: none;

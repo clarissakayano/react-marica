@@ -1,11 +1,12 @@
 import { memo, useCallback, useEffect } from 'react'
 
 import Header from 'Header/Header'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
-import { AiOutlineMail } from 'react-icons/ai'
+import { AiOutlineClockCircle, AiOutlineMail } from 'react-icons/ai'
 import { FiPhone } from 'react-icons/fi'
+import { HiArrowLeft } from 'react-icons/hi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import { RiMapPinLine } from 'react-icons/ri'
 import SVG from 'react-inlinesvg'
@@ -13,13 +14,12 @@ import { useParams } from 'react-router-dom'
 import Slider from 'react-slick'
 
 import { useCommerces } from 'context/CommerceContext'
-import { useRestaurants } from 'context/RestaurantesContext'
 
 import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import { CategoriesColor, Title, Container, TextBlack, Img } from './styles'
+import { CategoriesColor, Title, TextBlack, Img, Subtitle } from './styles'
 
 const Commerce: React.FC = () => {
   const { fetchCommerce, commerce, isLoading, error } = useCommerces()
@@ -34,7 +34,7 @@ const Commerce: React.FC = () => {
   }, [fetchCommerce, id])
 
   useEffect(() => {
-    setTitle('Bares e Commercees')
+    setTitle('Comércio')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage])
 
@@ -67,11 +67,18 @@ const Commerce: React.FC = () => {
               </Slider>
             )}
 
-            <Container>
-              <Row className="mb-4">
+            <Container className="mb-5">
+              <Row className="mb-4 mt-3">
                 <Col className="col-12 col-lg-8">
-                  <a href="/comercios">
-                    <h2>{commerce.nome}</h2>
+                  <Subtitle className="fs-sm fw-light mx-4 mt-3">
+                    Comércio Local
+                  </Subtitle>
+
+                  <a href="/comercio-local">
+                    <Title className="fw-bold">
+                      <HiArrowLeft color="black" size={22} className="me-2 " />
+                      {commerce?.nome}
+                    </Title>
                   </a>
                   <div className="d-flex flex-wrap mt-3">
                     {!isLoading &&
@@ -79,7 +86,7 @@ const Commerce: React.FC = () => {
                       Array.isArray(commerce?.categorias) &&
                       commerce.categorias.map((category) => (
                         <div key={category.id}>
-                          <CategoriesColor className="me-3">
+                          <CategoriesColor className="me-3 mt-2">
                             {category.label}
                           </CategoriesColor>
                         </div>
@@ -88,7 +95,6 @@ const Commerce: React.FC = () => {
                 </Col>
               </Row>
 
-              <div />
               <div>
                 <p>{commerce.descricao_t}</p>
               </div>
@@ -115,7 +121,7 @@ const Commerce: React.FC = () => {
                   {p.nome} : {p.number}
                 </p>
               ))}
-              <div>
+              <div className="mt2">
                 <AiOutlineMail className="me-2" size={20} color="#6ebd00" />
                 <span>{commerce.email}</span>
               </div>
@@ -127,32 +133,43 @@ const Commerce: React.FC = () => {
                 </p>
               ))}
 
-              {commerce.horario_funcionamento.map((p) => (
-                <div className="me-2">
-                  <TextBlack className="me-2">{p.label}</TextBlack>
-                  {p.horario.abre} às {p.horario.fecha}
-                </div>
-              ))}
-              {Array.isArray(commerce.dicas_t) && (
-                <div className="mt-4">
-                  <Title>Dicas</Title>
-
-                  <p>{commerce.dicas_t}</p>
+              {commerce.horario_funcionamento.length > 0 && (
+                <div className="d-flex mt-3 ">
+                  <div>
+                    <AiOutlineClockCircle
+                      size={20}
+                      color="#6ebd00"
+                      className="me-2"
+                    />
+                  </div>
+                  <Col className="col-3">
+                    {commerce.horario_funcionamento.map((horario) => (
+                      <p className="fw-bold">{horario.label}</p>
+                    ))}
+                  </Col>
+                  <Col className="col-5">
+                    {commerce.horario_funcionamento.map((horario) => (
+                      <p>
+                        {horario.horario.abre} às {horario.horario.fecha}
+                      </p>
+                    ))}
+                  </Col>
                 </div>
               )}
 
-              {Array.isArray(commerce.viajantes) && (
+              {Array.isArray(commerce.estruturas) && (
                 <div className="mt-4">
-                  <Title>Tipos de Viajantes</Title>
+                  <Title>Estruturas</Title>
 
-                  <Row className="row-cols-3">
-                    {commerce.viajantes.map((p) => (
+                  <Row className="row-cols-1 row-cols-md-2">
+                    {commerce.estruturas.map((p) => (
                       <Col className="d-flex align items-center">
                         <p>
-                          <IoIosCheckmarkCircleOutline
+                          <SVG
                             className="me-2"
-                            size={25}
-                            color="#6ebd00"
+                            src={p.icone}
+                            fill="#6ebd00"
+                            width={20}
                           />
                           {p.label}
                         </p>
@@ -161,6 +178,29 @@ const Commerce: React.FC = () => {
                   </Row>
                 </div>
               )}
+
+              {Array.isArray(commerce?.restricoes) &&
+                commerce?.restricoes.length > 0 && (
+                  <div className="mt-4">
+                    <Title>Restrições</Title>
+
+                    <Row className="row-cols-3">
+                      {commerce.restricoes.map((p) => (
+                        <Col className="d-flex align items-center">
+                          <p className="mb-3">
+                            <SVG
+                              className="me-2"
+                              src={p.icone}
+                              fill="#6ebd00"
+                            />
+                            {p.label}
+                          </p>
+                        </Col>
+                      ))}
+                    </Row>
+                  </div>
+                )}
+
               {Array.isArray(commerce.formas_pagamento) && (
                 <div className="mt-4">
                   <Title>Formas de Pagamento</Title>
@@ -182,27 +222,6 @@ const Commerce: React.FC = () => {
                   </Row>
                 </div>
               )}
-              {Array.isArray(commerce.restricoes) &&
-                commerce.restricoes.length > 0 && (
-                  <div className="mt-4">
-                    <Title>Restrições</Title>
-
-                    <Row className="row-cols-3">
-                      {commerce.restricoes.map((p) => (
-                        <Col className="d-flex align items-center">
-                          <p className="mb-3">
-                            <SVG
-                              className="me-2"
-                              src={p.icone}
-                              fill="#6ebd00"
-                            />
-                            {p.label}
-                          </p>
-                        </Col>
-                      ))}
-                    </Row>
-                  </div>
-                )}
             </Container>
           </>
         )}

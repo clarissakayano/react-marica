@@ -1,20 +1,11 @@
 import styled from 'styled-components'
 
-export const CategoriesColor = styled.div`
-  display: flex;
-  background-color: #6ebd00;
-  border-radius: 15px;
-  padding: 0px 15px;
-  color: blue;
-  font-family: Roboto, sans-serif;
-  font-size: 18px;
-`
-
 export const Title = styled.h1`
   font-family: Roboto, sans-serif;
   font-size: 28px;
   font-weight: 700;
   margin-top: 10px;
+  color: black;
 `
 
 export const Inp = styled.div`
@@ -40,6 +31,9 @@ export const Inp = styled.div`
 
 export const BgColor = styled.div`
   background-color: #f5f5f5;
+  span {
+    color: black;
+  }
 
   ul {
     margin: 0px 10px 10px 0px;
