@@ -17,13 +17,7 @@ import { Card1, CardText, CardTitle, CategoryText, Cover } from './styles'
 // <Link style={{ textDecoration: 'none' }} to={`item/${item.id}`} />
 
 interface ICollectionTypeProps {
-  item:
-    | CollectionType
-    | SpaceEventsType
-    | HotelType
-    | RestaurantType
-    | CommerceType
-    | EventType
+  item: SpaceEventsType | HotelType | RestaurantType | CommerceType | EventType
   children?: React.ReactNode
   endPoint?: string
   pagelink: string

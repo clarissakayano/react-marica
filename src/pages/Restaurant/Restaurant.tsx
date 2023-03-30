@@ -1,14 +1,9 @@
-import { memo, useCallback, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 
 import Header from 'Header/Header'
 import { Col, Container, Row } from 'react-bootstrap'
-import Carousel from 'react-bootstrap/Carousel'
 import { useTranslation } from 'react-i18next'
-import {
-  AiOutlineArrowLeft,
-  AiOutlineClockCircle,
-  AiOutlineMail,
-} from 'react-icons/ai'
+import { AiOutlineArrowLeft, AiOutlineClockCircle } from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import { FiPhone } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
@@ -24,14 +19,13 @@ import Footer from 'components/Footer/Footer'
 
 import useTitle from 'hooks/useTitle'
 
-import { CategoriesColor, Img, Title } from './styles'
+import { Img, Title } from './styles'
 
 const Restaurant: React.FC = () => {
   const { fetchRestaurant, restaurant, isLoading, error, categories } =
     useRestaurants()
 
   const { id } = useParams()
-  console.log('idP')
   const { t, i18n } = useTranslation()
   const setTitle = useTitle()
 
